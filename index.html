@@ -65,11 +65,23 @@
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; cursor: pointer; }
     .card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(15,23,42,.06), 0 20px 50px rgba(15,23,42,.14); }
     .card:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
-    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #e2e8f0; border-bottom: 1px solid var(--border); }
-    .shot iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; pointer-events: none; }
-    .shot .play { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(180deg, transparent 40%, rgba(2,6,23,.55)); opacity: 0; transition: opacity .2s; }
-    .card:hover .play { opacity: 1; }
-    .play span { background: #fff; color: #0b1020; font-weight: 700; padding: 10px 16px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); display: grid; place-items: center; align-content: center; gap: 18px; padding: 20px;
+      background:
+        radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--c) 45%, white) 0%, transparent 55%),
+        radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--c) 60%, black) 0%, transparent 60%),
+        linear-gradient(140deg, color-mix(in srgb, var(--c) 85%, white), var(--c) 55%, color-mix(in srgb, var(--c) 70%, black)); }
+    /* textura de pontos sutil sobre o gradiente */
+    .shot::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.2px); background-size: 18px 18px; mask-image: linear-gradient(160deg, #000 10%, transparent 75%); }
+    .shot::after { content: ""; position: absolute; width: 70%; aspect-ratio: 1; right: -22%; bottom: -48%; border-radius: 50%; border: 2px solid rgba(255,255,255,.14); box-shadow: 0 0 0 28px rgba(255,255,255,.05); }
+    .logo-card { position: relative; z-index: 1; background: #fff; border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(2,6,23,.28); display: flex; align-items: center; justify-content: center; width: min(64%, 270px); height: 112px; transition: transform .25s; }
+    .card:hover .logo-card { transform: translateY(-3px) scale(1.02); }
+    .logo-card img { width: 100%; height: 84px; object-fit: contain; display: block; }
+    .badges { position: relative; z-index: 1; display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .badges span { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #fff; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(6px); }
+    .badges .ms { font-size: 15px; }
+    .shot .play { position: absolute; top: 12px; right: 12px; z-index: 2; opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
+    .card:hover .play, .card:focus-visible .play { opacity: 1; transform: none; }
+    .play span { background: #fff; color: #0b1020; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
     .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
     .meta { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
     .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -226,10 +238,12 @@
       const lista = PROJETOS.filter((p) => filtro === "Todos" || p.tags.includes(filtro));
       $("#grid").innerHTML = lista.map((p) => `
         <article class="card" tabindex="0" data-slug="${p.slug}" aria-label="Abrir demonstração de ${esc(p.nome)}">
-          <div class="shot"><iframe data-src="demos/${p.slug}/?thumb=1" title="Prévia de ${esc(p.nome)}" tabindex="-1" aria-hidden="true"></iframe>
+          <div class="shot" style="--c:${p.cor}">
+            <div class="logo-card"><img src="demos/${p.slug}/${CAPAS[p.slug].logo}" alt="Logo ${esc(p.nome)}" loading="lazy"></div>
+            <div class="badges">${CAPAS[p.slug].selos.map(([i, t]) => `<span><span class="ms">${i}</span>${esc(t)}</span>`).join("")}</div>
             <div class="play"><span><span class="ms">play_arrow</span>Explorar o sistema</span></div></div>
           <div class="body">
-            <div class="meta" style="color:${p.cor}"><i class="dot" style="background:${p.cor}"></i>${esc(p.setor)}</div>
+            <div class="meta" style="color:color-mix(in srgb, ${p.cor} 55%, var(--text))"><i class="dot" style="background:${p.cor}"></i>${esc(p.setor)}</div>
             <h3>${esc(p.nome)}</h3><p>${esc(p.desc)}</p>
             <ul class="points">${p.pontos.map((t) => `<li><span class="ms">check_circle</span>${esc(t)}</li>`).join("")}</ul>
             <div class="stack">${p.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
@@ -240,21 +254,21 @@
         c.addEventListener("click", open);
         c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
       });
-      prepararPrevias();
     }
 
-    /* Prévias ao vivo: cada card carrega a demo em miniatura quando aparece na tela. */
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const f = e.target.querySelector("iframe");
-      if (!f.src) f.src = f.dataset.src;
-      io.unobserve(e.target);
-    }), { rootMargin: "200px" });
-    const ro = new ResizeObserver((entries) => entries.forEach((e) => {
-      const f = e.target.querySelector("iframe");
-      f.style.transform = `scale(${e.contentRect.width / 1280})`;
-    }));
-    function prepararPrevias() { document.querySelectorAll(".shot").forEach((s) => { io.observe(s); ro.observe(s); }); }
+    /* Capa de cada card: logo do sistema (em demos/<slug>/) e três selos com o que ele faz. */
+    const CAPAS = {
+      "horizonte-vidros": { logo: "logo.png", selos: [["smart_toy", "Agente de IA"], ["forum", "WhatsApp"], ["request_quote", "Orçamento automático"]] },
+      "clinica-serena": { logo: "logo.png", selos: [["smart_toy", "Agenda pela IA"], ["medication", "Receitas na Memed"], ["calendar_month", "Agenda"]] },
+      "solidus": { logo: "logo.jpg", selos: [["psychology", "IA com RAG"], ["view_kanban", "CRM"], ["sync_alt", "RD Station"]] },
+      "impulsa": { logo: "logo.svg", selos: [["draw", "Contratos"], ["monitoring", "Diagnósticos"], ["groups", "Portal do mentorado"]] },
+      "clinica-aurora": { logo: "logo.svg", selos: [["calendar_month", "Agenda"], ["photo_camera", "Antes e depois"], ["inventory_2", "Estoque"]] },
+      "ferrum": { logo: "logo.jpg", selos: [["sync", "ERP Sankhya"], ["restart_alt", "Reativação"], ["forum", "WhatsApp"]] },
+      "agencia-pulso": { logo: "logo.png", selos: [["view_kanban", "Produção"], ["thumb_up", "Aprovação do cliente"], ["pix", "Asaas"]] },
+      "rumo-talentos": { logo: "logo.png", selos: [["travel_explore", "Coleta no ATS"], ["how_to_reg", "Qualificação"], ["chat", "WhatsApp"]] },
+      "sintravida": { logo: "logo.png", selos: [["pool", "Ingressos"], ["beach_access", "Sorteios"], ["qr_code_scanner", "Check-in QR"]] },
+      "verdalis": { logo: "logo.png", selos: [["folder_open", "Documentos"], ["notifications_active", "Alertas"], ["verified", "FSC / EUDR"]] },
+    };
 
     function filtros() {
       const tags = ["Todos", ...new Set(PROJETOS.flatMap((p) => p.tags))];
