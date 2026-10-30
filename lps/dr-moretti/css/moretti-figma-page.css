@@ -1,0 +1,114 @@
+/* Estilos auxiliares para páginas React exportadas do Figma */
+html {
+  scroll-padding-top: 110px;
+}
+
+#sobre {
+  scroll-margin-top: 110px;
+}
+
+body.moretti-has-shared-footer .moretti-footer {
+  margin-top: 0;
+}
+
+/* Esconde rodapé duplicado exportado do Figma nas páginas React */
+body.moretti-has-shared-footer #root [data-node-id="21:295"],
+body.moretti-has-shared-footer #root [data-node-id="21:301"],
+body.moretti-has-shared-footer #root [data-node-id="21:300"],
+body.moretti-has-shared-footer #root [data-node-id="21:310"],
+body.moretti-has-shared-footer #root [data-node-id="21:311"],
+body.moretti-has-shared-footer #root [data-node-id="21:317"],
+body.moretti-has-shared-footer #root [data-node-id="21:319"],
+body.moretti-has-shared-footer #root [data-node-id="21:379"],
+body.moretti-has-shared-footer #root [data-node-id="21:408"],
+body.moretti-has-shared-footer #root [data-node-id="21:409"],
+body.moretti-has-shared-footer #root [data-node-id="21:420"],
+body.moretti-has-shared-footer #root [data-node-id="21:424"],
+body.moretti-has-shared-footer #root [data-node-id="21:426"],
+body.moretti-has-shared-footer #root [data-node-id="21:428"],
+body.moretti-has-shared-footer #root [data-node-id="21:437"],
+body.moretti-has-shared-footer #root [data-node-id="21:438"],
+body.moretti-has-shared-footer #root [data-node-id="21:440"],
+body.moretti-has-shared-footer #root [data-node-id="21:442"],
+body.moretti-has-shared-footer #root [data-node-id="21:461"],
+body.moretti-has-shared-footer #root [data-node-id="21:478"],
+body.moretti-has-shared-footer #root [data-node-id="21:488"],
+body.moretti-has-shared-footer #root [data-node-id="2038:279"],
+body:has(.moretti-footer) #root [data-node-id="21:295"],
+body:has(.moretti-footer) #root [data-node-id="21:301"],
+body:has(.moretti-footer) #root [data-node-id="21:300"],
+body:has(.moretti-footer) #root [data-node-id="21:310"],
+body:has(.moretti-footer) #root [data-node-id="21:311"],
+body:has(.moretti-footer) #root [data-node-id="21:317"],
+body:has(.moretti-footer) #root [data-node-id="21:319"],
+body:has(.moretti-footer) #root [data-node-id="21:379"],
+body:has(.moretti-footer) #root [data-node-id="21:408"],
+body:has(.moretti-footer) #root [data-node-id="21:409"],
+body:has(.moretti-footer) #root [data-node-id="21:420"],
+body:has(.moretti-footer) #root [data-node-id="21:424"],
+body:has(.moretti-footer) #root [data-node-id="21:426"],
+body:has(.moretti-footer) #root [data-node-id="21:428"],
+body:has(.moretti-footer) #root [data-node-id="21:437"],
+body:has(.moretti-footer) #root [data-node-id="21:438"],
+body:has(.moretti-footer) #root [data-node-id="21:440"],
+body:has(.moretti-footer) #root [data-node-id="21:442"],
+body:has(.moretti-footer) #root [data-node-id="21:461"],
+body:has(.moretti-footer) #root [data-node-id="21:478"],
+body:has(.moretti-footer) #root [data-node-id="21:488"],
+body:has(.moretti-footer) #root [data-node-id="2038:279"] {
+  display: none !important;
+}
+.mask-alpha {
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+.mask-intersect {
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.mask-no-clip {
+  -webkit-mask-clip: border-box;
+  mask-clip: border-box;
+}
+.mask-no-repeat {
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.size-full {
+  width: 100%;
+  height: 100%;
+}
+.max-w-none {
+  max-width: none;
+}
+.object-cover {
+  object-fit: cover;
+}
+.inset-0 {
+  inset: 0;
+}
+.loading {
+  padding: 24px;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+}
+[class*="font-['Poppins:Light',sans-serif]"] {
+  font-family: "Poppins", system-ui, sans-serif !important;
+  font-weight: 300 !important;
+}
+[class*="font-['Poppins:Regular',sans-serif]"] {
+  font-family: "Poppins", system-ui, sans-serif !important;
+  font-weight: 400 !important;
+}
+[class*="font-['Poppins:SemiBold',sans-serif]"] {
+  font-family: "Poppins", system-ui, sans-serif !important;
+  font-weight: 600 !important;
+}
+[class*="font-['Poppins:Bold',sans-serif]"] {
+  font-family: "Poppins", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+}
+p:empty::before {
+  content: "\00a0";
+}

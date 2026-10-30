@@ -93,6 +93,16 @@
     .badges { position: relative; z-index: 1; display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
     .badges span { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #fff; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(6px); }
     .badges .ms { font-size: 15px; }
+    /* capa das LPs: foto da própria página com o nome por cima */
+    .shot--lp { background: #0b1020; place-items: end start; align-content: end; justify-content: stretch; padding: 0; }
+    .shot--lp::before { background: linear-gradient(180deg, rgba(2,6,23,.05) 30%, rgba(2,6,23,.82)); background-size: auto; mask-image: none; }
+    .shot--lp::after { display: none; }
+    .shot--lp img.capa { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .card:hover .shot--lp img.capa { transform: scale(1.04); }
+    .lp-title { position: relative; z-index: 1; padding: 18px 20px; color: #fff; }
+    .lp-title strong { display: block; font-size: 24px; letter-spacing: -.02em; text-shadow: 0 2px 12px rgba(0,0,0,.4); }
+    .lp-title span { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25); backdrop-filter: blur(6px); }
+    .lp-title .ms { font-size: 15px; }
     .shot .play { position: absolute; top: 12px; right: 12px; z-index: 2; opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
     .card:hover .play, .card:focus-visible .play { opacity: 1; transform: none; }
     .play span { background: #fff; color: #0b1020; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
@@ -148,7 +158,7 @@
   </style>
 </head>
 <body>
-  <header class="top"><div class="wrap"><strong>Pedro Borges</strong><nav><a href="#projetos">Projetos</a><a href="#skills">Skills</a><a href="#contato">Contato</a></nav></div></header>
+  <header class="top"><div class="wrap"><strong>Pedro Borges</strong><nav><a href="#projetos">Projetos</a><a href="#lps">Landing pages</a><a href="#skills">Skills</a><a href="#contato">Contato</a></nav></div></header>
 
   <div class="hero"><div class="wrap">
     <!-- Para usar sua foto: troque o "PB" por <img src="foto.jpg" alt="Pedro Borges"> -->
@@ -168,6 +178,11 @@
     <div class="grid" id="grid"></div>
   </div></section>
 
+  <section id="lps" style="padding-top:24px"><div class="wrap">
+    <div class="head"><div><h2>Landing pages</h2><p>Sites e páginas de campanha que desenvolvi a partir do design no Figma. Clique para navegar pela página como se estivesse no ar.</p></div></div>
+    <div class="grid" id="grid-lps"></div>
+  </div></section>
+
   <section id="skills" style="padding-top:24px"><div class="wrap">
     <div class="head"><div><h2>Skills</h2><p>Tecnologias que uso no dia a dia desses projetos.</p></div></div>
     <div class="skills" id="skills-grid"></div>
@@ -176,7 +191,7 @@
   <footer id="contato"><div class="wrap">
     <!-- Coloque aqui seus links reais (e-mail, LinkedIn, GitHub). -->
     <p>Pedro Borges · Desenvolvedor Full Stack</p>
-    <p style="margin-top:6px">Os sistemas desta página são demonstrações: empresas, pessoas e dados são fictícios.</p>
+    <p style="margin-top:6px">Os sistemas e landing pages desta página são demonstrações: empresas, pessoas e dados são fictícios.</p>
   </div></footer>
 
   <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Demonstração do sistema">
@@ -317,14 +332,59 @@
       $("#skills-grid").innerHTML = SKILLS.map((s) => `<div class="skill"><h3><span class="ms">${s.icone}</span>${esc(s.titulo)}</h3><div class="stack">${s.itens.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div></div>`).join("");
     }
 
-    /* Janela de navegador com a demo. O hash #demo/<slug> permite compartilhar o link já aberto. */
+    /* Landing pages: cópias estáticas (anonimizadas) em lps/<pasta>/. */
+    const LPS = [
+      { slug: "lp-moretti", nome: "Dr. Rafael Moretti", setor: "Saúde · Ortopedia", cor: "#1d4ed8", url: "drmoretti.com.br", href: "lps/dr-moretti/index.html", capa: "lps/_capas/dr-moretti.jpg", paginas: 7,
+        desc: "Site de um cirurgião de quadril e joelho: home e seis páginas de procedimentos, cada uma com conteúdo para o paciente e chamada para agendar.",
+        pontos: ["Fiel ao layout do Figma, com ajuste fino para mobile", "Menu com dropdowns e botão de WhatsApp fixo", "Blog com painel administrativo em PHP (fora da demo)"],
+        stack: ["HTML", "Tailwind", "React", "JavaScript", "PHP"] },
+      { slug: "lp-bambu", nome: "Bambu & Co", setor: "Gastronomia · Bar e restaurante", cor: "#c61728", url: "bambubar.com.br", href: "lps/bambu/index.html", capa: "lps/_capas/bambu.jpg", paginas: 4,
+        desc: "Site de um bar e restaurante com cardápio digital e tabelas nutricionais de comidas e bebidas, acessadas por QR code nas mesas.",
+        pontos: ["Tabelas nutricionais geradas a partir dos PDFs do cardápio", "SEO local (schema.org, sitemap, Open Graph)", "QR codes para cardápio e nutrição"],
+        stack: ["HTML", "CSS", "JavaScript", "Python"] },
+      { slug: "lp-vexa", nome: "VEXA", setor: "Marketing · Agência de influência", cor: "#fc532b", url: "vexa.com.br", href: "lps/vexa/index.html", capa: "lps/_capas/vexa.jpg", paginas: 1,
+        desc: "Landing page de uma agência de conteúdo e marketing de influência, com vitrine de marcas atendidas e formulário de contato.",
+        pontos: ["Tickers animados de marcas e cases", "Formulário com envio por SMTP (PHPMailer)", "Seções de método, público e grupo de empresas"],
+        stack: ["HTML", "CSS", "JavaScript", "PHP"] },
+      { slug: "lp-agrolacteo", nome: "AgroLácteo 2026", setor: "Evento · Agronegócio", cor: "#2e7d32", url: "rede-empreende.org.br/agrolacteo", href: "lps/rede-empreende/agrolacteo/index.html", capa: "lps/_capas/agrolacteo.jpg", paginas: 1,
+        desc: "Página de evento de uma organização de apoio a pequenos negócios: programação por dia, temas do estande e convite para visitar.",
+        pontos: ["Programação dos cinco dias do evento", "Mapa de temas (inovação, turismo, sustentabilidade)", "QR code e chamadas para os serviços"],
+        stack: ["HTML", "CSS", "JavaScript"] },
+      { slug: "lp-inova", nome: "Vitrine INOVA", setor: "Inovação · Programa", cor: "#1e3a8a", url: "rede-empreende.org.br/vitrine-inova", href: "lps/rede-empreende/Vitrine%20Inova/index.html", capa: "lps/_capas/vitrine-inova.jpg", paginas: 1,
+        desc: "Página do programa que aproxima pesquisa científica e empresas, apresentando as tecnologias disponíveis e como participar.",
+        pontos: ["Como funciona em etapas (seleção, validação, mercado)", "Vitrine tecnológica e edições do programa", "Layout responsivo a partir do Figma"],
+        stack: ["HTML", "CSS", "JavaScript"] },
+    ];
+
+    function cardsLps() {
+      $("#grid-lps").innerHTML = LPS.map((p) => `
+        <article class="card" tabindex="0" data-slug="${p.slug}" aria-label="Abrir a landing page ${esc(p.nome)}">
+          <div class="shot shot--lp"><img class="capa" src="${p.capa}" alt="" loading="lazy">
+            <div class="lp-title"><strong>${esc(p.nome)}</strong><span><span class="ms">${p.paginas > 1 ? "layers" : "web"}</span>${p.paginas > 1 ? `${p.paginas} páginas` : "Página única"}</span></div>
+            <div class="play"><span><span class="ms">open_in_browser</span>Ver a página</span></div></div>
+          <div class="body">
+            <div class="meta" style="color:color-mix(in srgb, ${p.cor} 55%, var(--text))"><i class="dot" style="background:${p.cor}"></i>${esc(p.setor)}</div>
+            <h3>${esc(p.nome)}</h3><p>${esc(p.desc)}</p>
+            <ul class="points">${p.pontos.map((t) => `<li><span class="ms">check_circle</span>${esc(t)}</li>`).join("")}</ul>
+            <div class="stack">${p.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+          </div>
+        </article>`).join("");
+      document.querySelectorAll("#grid-lps .card").forEach((c) => {
+        const open = () => abrir(c.dataset.slug);
+        c.addEventListener("click", open);
+        c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      });
+    }
+
+    /* Janela de navegador com a demo ou a LP. O hash #demo/<slug> permite compartilhar o link já aberto. */
     const viewer = $("#viewer"), frame = $("#v-frame");
     let atual = null;
+    const destino = (p) => p.href || `demos/${p.slug}/`;
     function abrir(slug, semHistorico) {
-      const p = PROJETOS.find((x) => x.slug === slug);
+      const p = PROJETOS.find((x) => x.slug === slug) || LPS.find((x) => x.slug === slug);
       if (!p) return;
       atual = p;
-      frame.src = `demos/${slug}/`;
+      frame.src = destino(p);
       $("#v-url").textContent = `https://${p.url}`;
       viewer.classList.add("open");
       document.body.style.overflow = "hidden";
@@ -335,10 +395,10 @@
       viewer.classList.remove("open");
       frame.src = "about:blank";
       document.body.style.overflow = "";
-      if (!semHistorico && location.hash.startsWith("#demo/")) history.pushState(null, "", "#projetos");
+      if (!semHistorico && location.hash.startsWith("#demo/")) history.pushState(null, "", atual && atual.href ? "#lps" : "#projetos");
     }
     $("#v-close").addEventListener("click", () => fechar());
-    $("#v-new").addEventListener("click", () => atual && window.open(`demos/${atual.slug}/`, "_blank", "noopener"));
+    $("#v-new").addEventListener("click", () => atual && window.open(destino(atual), "_blank", "noopener"));
     $("#v-reload").addEventListener("click", () => { try { frame.contentWindow.location.reload(); } catch (e) { frame.src = frame.src; } });
     $("#v-back").addEventListener("click", () => { try { frame.contentWindow.history.back(); } catch (e) { /* demo em outra origem */ } });
     viewer.addEventListener("click", (e) => { if (e.target === viewer) fechar(); });
@@ -347,7 +407,14 @@
       // Mostra a "rota" da demo na barra de endereço, como num navegador de verdade.
       try {
         const w = frame.contentWindow;
-        const sync = () => { $("#v-url").textContent = `https://${atual.url}/${(w.location.hash || "").replace(/^#\/?/, "")}`; };
+        const sync = () => {
+          if (!atual.href) { $("#v-url").textContent = `https://${atual.url}/${(w.location.hash || "").replace(/^#\/?/, "")}`; return; }
+          // LP: mostra a página atual como rota do domínio fictício (ex.: /protese-quadril).
+          const base = new URL(atual.href.replace(/[^/]*$/, ""), location.href).pathname;
+          let rota = decodeURIComponent(w.location.pathname).replace(decodeURIComponent(base), "").replace(/index\.html$/, "").replace(/\/$/, "");
+          rota = rota.replace(/^[^/]*?- /, "").replace(/\s+/g, "-").toLowerCase();
+          $("#v-url").textContent = `https://${atual.url}${rota ? "/" + rota : ""}`;
+        };
         w.addEventListener("hashchange", sync);
         // Captura: roda antes da demo fechar o próprio drawer, então Esc fecha uma coisa por vez.
         w.addEventListener("keydown", (e) => { if (e.key === "Escape" && !w.document.querySelector(".overlay")) fechar(); }, true);
@@ -361,7 +428,7 @@
     window.addEventListener("popstate", rotear);
 
     $("#n-proj").textContent = PROJETOS.length;
-    filtros(); cards(); skills(); rotear();
+    filtros(); cards(); cardsLps(); skills(); rotear();
   </script>
 </body>
 </html>

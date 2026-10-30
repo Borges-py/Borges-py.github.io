@@ -1,0 +1,107 @@
+/* Estilo das paginas de aviso "em breve" (cardapio e informacao nutricional).
+   Compartilhado pelas tres para que um ajuste visual valha para todas. */
+
+:root {
+  --black: #000000;
+  --cream: #f9e4d7;
+  --lime: #c3e20e;
+  --red: #c61728;
+  --font-display: "Quicksand", sans-serif;
+  --font-body: "Instrument Sans", sans-serif;
+  --radius: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.aviso { width: min(520px, 100%); text-align: center; }
+.aviso__logo { width: min(200px, 55%); margin: 0 auto 36px; }
+
+.aviso__cat {
+  font-family: var(--font-display);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 10px;
+}
+
+.aviso__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 8vw, 2.75rem);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+.aviso__title span { display: block; color: var(--lime); }
+
+.aviso__text { font-size: clamp(1rem, 4vw, 1.125rem); margin-bottom: 24px; }
+
+/* Aviso de alergia: destacado de proposito. Enquanto a tabela nutricional
+   nao existe, esta e a orientacao segura para quem tem restricao alimentar. */
+.aviso__alerta {
+  text-align: left;
+  font-size: .9375rem;
+  line-height: 1.5;
+  padding: 16px 18px;
+  margin-bottom: 28px;
+  border: 1px solid rgba(249, 228, 215, .25);
+  border-left: 3px solid var(--lime);
+  border-radius: 12px;
+  background: rgba(249, 228, 215, .05);
+}
+.aviso__alerta strong { display: block; color: var(--lime); font-weight: 600; margin-bottom: 2px; }
+
+.aviso__actions { display: grid; gap: 14px; }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 60px;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  transition: transform .25s ease, filter .25s ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.btn--zap { background: #25d366; color: #fff; }
+.btn--ghost { border: 2px solid var(--cream); color: var(--cream); }
+
+.aviso__voltar {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: .9375rem;
+  color: var(--cream);
+  opacity: .7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.aviso__voltar:hover { opacity: 1; }
+
+.aviso__local {
+  margin-top: 32px;
+  font-size: .9375rem;
+  line-height: 1.5;
+  opacity: .75;
+}
+.aviso__local strong { color: var(--lime); font-weight: 600; }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  A pagina /cardapio/ NAO esta listada aqui de proposito: enquanto ela for a
+  versao "em breve" ela carrega <meta name="robots" content="noindex">, e listar
+  no sitemap uma pagina marcada como noindex manda sinais contraditorios ao Google.
+  Quando o cardapio real entrar no ar, remova o noindex e acrescente a URL aqui.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://bambubar.exemplo.com/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

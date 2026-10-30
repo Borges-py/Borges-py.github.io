@@ -1,0 +1,380 @@
+/* Rodapé compartilhado — igual à home */
+.moretti-footer {
+  --moretti-footer-navy: #081a3d;
+  --moretti-footer-blue: #437ae4;
+  --moretti-footer-rule: rgba(90, 156, 255, 0.6);
+  --moretti-footer-text-offset: calc(56px + 0.75rem);
+  --moretti-footer-max: 1200px;
+  --moretti-footer-radius: 15px;
+  background: linear-gradient(146deg, #081a3d 30%, #012a79 79%);
+  color: rgba(255, 255, 255, 0.96);
+  font-family: "Poppins", system-ui, sans-serif;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+.moretti-footer__inner {
+  max-width: var(--moretti-footer-max);
+  margin: 0 auto;
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 2rem) 0;
+}
+
+.moretti-footer__title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  font-weight: 300;
+  margin: 0 0 2.5rem;
+  color: #fff;
+}
+
+.moretti-footer__title img {
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px;
+  min-height: 56px;
+  max-width: none !important;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.moretti-footer__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .moretti-footer__grid {
+    grid-template-columns: 1fr 380px;
+    align-items: start;
+  }
+}
+
+.moretti-footer__copy {
+  padding-left: var(--moretti-footer-text-offset);
+  max-width: 42rem;
+}
+
+.moretti-footer__copy p {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.moretti-footer__copy p:last-child {
+  margin-bottom: 0;
+}
+
+.moretti-footer__copy strong {
+  font-weight: 700;
+  color: var(--moretti-footer-blue);
+}
+
+.moretti-footer__highlights {
+  margin-top: 1.5rem;
+  max-width: 42rem;
+  border-top: 1px solid var(--moretti-footer-rule);
+}
+
+.moretti-footer__highlight {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: 1.25rem;
+  align-items: center;
+  padding: 1.25rem 0;
+}
+
+.moretti-footer__highlight + .moretti-footer__highlight {
+  border-top: 1px solid var(--moretti-footer-rule);
+}
+
+.moretti-footer__highlight img {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: none !important;
+  object-fit: contain;
+  display: block;
+}
+
+.moretti-footer__highlight p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.moretti-footer__contact {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  margin-left: var(--moretti-footer-text-offset);
+  padding: 0;
+  width: min(32rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.moretti-footer__contact a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding: 0.65rem 1.15rem;
+  background: var(--moretti-footer-blue);
+  color: var(--moretti-footer-navy);
+  text-decoration: none;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+  min-height: 2.75rem;
+  box-sizing: border-box;
+  transition: filter 0.15s ease;
+  width: 100%;
+  max-width: 100%;
+}
+
+.moretti-footer__contact a > span:not(.moretti-footer__contact-icon) {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.moretti-footer__contact a:hover {
+  filter: brightness(1.07);
+}
+
+.moretti-footer__contact-icon {
+  flex: 0 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.moretti-footer__contact-icon img,
+.moretti-footer__contact-icon svg {
+  display: block;
+  max-width: none !important;
+  flex-shrink: 0;
+}
+
+.moretti-footer__contact-icon img {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px;
+  min-height: 22px;
+  object-fit: contain;
+}
+
+.moretti-footer__contact-icon--email {
+  width: 24px;
+  height: 24px;
+}
+
+.moretti-footer__contact-icon--email svg {
+  width: 23px !important;
+  height: 17px !important;
+  min-width: 23px;
+  min-height: 17px;
+}
+
+.moretti-footer__contact-email {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.moretti-footer__cta {
+  margin-top: 1rem;
+  padding-left: var(--moretti-footer-text-offset);
+}
+
+.moretti-footer__cta a {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  padding: 1rem 1.5rem;
+  border-radius: var(--moretti-footer-radius);
+  background: linear-gradient(90deg, #144bb7, #0a3382);
+  color: #fff;
+  box-shadow: 0 10px 12px 7px rgba(0, 0, 0, 0.06);
+}
+
+.moretti-footer__cta a:hover {
+  filter: brightness(1.06);
+}
+
+.moretti-footer--curitiba .moretti-footer__cta a,
+.moretti-footer--protese-joelho .moretti-footer__cta a {
+  display: block;
+  width: min(32rem, 100%);
+  background: var(--moretti-footer-blue);
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.moretti-footer--curitiba .moretti-footer__cta a:hover,
+.moretti-footer--protese-joelho .moretti-footer__cta a:hover {
+  filter: brightness(1.08);
+}
+
+/* Revisão de prótese: CTA em bloco, mantendo o degradê padrão do layout. */
+.moretti-footer--revisao-protese .moretti-footer__cta a {
+  display: block;
+  width: min(36rem, 100%);
+}
+
+.moretti-footer__note {
+  margin: 0.65rem 0 0;
+  padding-left: var(--moretti-footer-text-offset);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.moretti-footer__map {
+  border-radius: var(--moretti-footer-radius);
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+}
+
+.moretti-footer__map img {
+  width: 100%;
+  max-width: 413px;
+  height: auto;
+  aspect-ratio: 413 / 620;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.moretti-footer__bar {
+  margin-top: 2.5rem;
+  background: #081a3d;
+  padding: 1.75rem clamp(1.25rem, 4vw, 2rem);
+}
+
+.moretti-footer__bar-inner {
+  max-width: var(--moretti-footer-max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+}
+
+.moretti-footer__logo {
+  width: 140px !important;
+  max-width: none !important;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Isola o rodapé de regras globais img (Tailwind / styles.css) */
+.moretti-footer img,
+.moretti-footer svg {
+  max-width: none !important;
+}
+
+.moretti-footer__bar-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem 2rem;
+}
+
+.moretti-footer__bar-links a,
+.moretti-footer__bar-links span {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.moretti-footer__bar-links a:hover {
+  color: var(--moretti-footer-blue);
+}
+
+.moretti-footer__bar-divider {
+  width: 2px;
+  height: 54px;
+  background: #d9d9d9;
+  opacity: 0.35;
+}
+
+@media (max-width: 720px) {
+  .moretti-footer {
+    --moretti-footer-text-offset: 0;
+  }
+
+  .moretti-footer__inner {
+    padding-inline: 1rem;
+  }
+
+  .moretti-footer__copy,
+  .moretti-footer__cta,
+  .moretti-footer__note {
+    padding-left: 0;
+    max-width: 100%;
+  }
+
+  .moretti-footer__contact {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .moretti-footer__contact a {
+    width: 100%;
+  }
+
+  .moretti-footer__contact a > span {
+    word-break: break-word;
+  }
+
+  .moretti-footer__cta a {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .moretti-footer__bar {
+    padding-inline: 1rem;
+  }
+
+  .moretti-footer__bar-inner {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .moretti-footer__bar-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .moretti-footer__bar-links a,
+  .moretti-footer__bar-links span {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.45;
+    max-width: 100%;
+  }
+
+  .moretti-footer__bar-divider {
+    display: none;
+  }
+}

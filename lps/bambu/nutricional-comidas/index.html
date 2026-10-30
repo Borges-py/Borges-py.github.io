@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Informação nutricional das comidas do Bambu.">
+  <!-- Remover o noindex quando a tabela nutricional real entrar no ar. -->
+  <meta name="robots" content="noindex">
+  <title>Informação nutricional — Comidas | Bambu &amp; Co</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#c61728">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/aviso.css">
+</head>
+<body>
+
+  <!--
+    Pasta com index.html de proposito: o Apache serve /nutricional-comidas
+    nativamente, sem depender de mod_rewrite (regra de rewrite no .htaccess
+    ja derrubou o site com 403 uma vez).
+    Caminhos com ../ funcionam tanto na raiz do dominio quanto em subpasta.
+
+    QUANDO A TABELA REAL FICAR PRONTA: substitua o conteudo desta pagina e
+    remova o <meta name="robots" content="noindex"> acima.
+  -->
+  <main class="aviso">
+    <img src="../assets/images/logo.png" alt="Bambu" class="aviso__logo">
+
+    <p class="aviso__cat">Informação nutricional</p>
+    <h1 class="aviso__title">
+      Nossa tabela de comidas
+      <span>está chegando</span>
+    </h1>
+
+    <p class="aviso__text">
+      Estamos organizando as informações nutricionais de todas as
+      nossas entradas, petiscos, pratos principais e sobremesas
+      para você consultar direto do celular.
+    </p>
+
+    <p class="aviso__alerta">
+      <strong>Tem alergia ou restrição alimentar?</strong>
+      Não espere pela tabela: fale com nossa equipe antes de pedir. Temos essas
+      informações no salão e conseguimos te orientar na hora, prato por prato.
+    </p>
+
+    <div class="aviso__actions">
+      <a href="https://wa.me/5541900009639?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20informa%C3%A7%C3%A3o%20nutricional%20das%20comidas%20do%20Bambu."
+         class="btn btn--zap" target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M16.004 3C9.377 3 4 8.373 4 15c0 2.386.7 4.61 1.91 6.48L4 29l7.71-1.87A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm0 21.8a9.75 9.75 0 0 1-4.98-1.37l-.357-.213-4.575 1.11 1.13-4.46-.233-.373A9.76 9.76 0 1 1 25.76 15a9.77 9.77 0 0 1-9.756 9.8zm5.36-7.32c-.294-.147-1.74-.86-2.01-.96-.27-.098-.467-.147-.663.148-.196.294-.76.96-.932 1.157-.172.196-.343.22-.637.073-.294-.147-1.24-.457-2.362-1.457-.873-.78-1.462-1.744-1.634-2.038-.172-.294-.018-.453.13-.6.133-.132.294-.343.44-.515.147-.172.196-.294.294-.49.098-.196.049-.368-.024-.515-.073-.147-.663-1.6-.909-2.19-.24-.575-.484-.497-.663-.506l-.564-.01c-.196 0-.515.073-.784.368-.27.294-1.03 1.006-1.03 2.455 0 1.448 1.054 2.847 1.2 3.043.147.196 2.075 3.168 5.028 4.442.703.303 1.25.484 1.677.62.704.224 1.345.192 1.852.117.565-.084 1.74-.71 1.986-1.397.245-.686.245-1.274.172-1.397-.073-.122-.27-.196-.564-.343z"/></svg>
+        Perguntar pelo WhatsApp
+      </a>
+
+      <a href="../nutricional-bebidas/" class="btn btn--ghost">Ver informação das bebidas</a>
+    </div>
+
+    <a href="../" class="aviso__voltar">Conhecer o Bambu</a>
+
+    <p class="aviso__local">
+      Rua das Palmeiras, 500 – Loja 02 | Curitiba<br>
+      <strong>Ter a sex</strong> 17h–23h · <strong>Sáb e dom</strong> 12h–23h
+    </p>
+  </main>
+
+</body>
+</html>

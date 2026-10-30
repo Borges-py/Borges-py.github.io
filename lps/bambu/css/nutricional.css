@@ -1,0 +1,208 @@
+/* Paginas de informacao nutricional (produto + tabela).
+   Mobile-first: estas paginas sao abertas por QR code, quase sempre no celular. */
+
+:root {
+  --black: #000000;
+  --cream: #f9e4d7;
+  --lime: #c3e20e;
+  --red: #c61728;
+  --font-display: "Quicksand", sans-serif;
+  --font-body: "Instrument Sans", sans-serif;
+  --linha: rgba(249, 228, 215, .16);
+  /* Ambar em vez do vermelho da marca: em texto pequeno sobre preto o
+     vermelho #c61728 tem contraste baixo demais para um aviso de alergico. */
+  --atencao: #ffb020;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 32px 20px 64px;
+}
+
+.pagina { width: min(920px, 100%); margin: 0 auto; }
+
+/* ---------- cabecalho ---------- */
+.topo { text-align: center; margin-bottom: 32px; }
+.topo__logo { width: min(150px, 42%); margin: 0 auto 24px; }
+.topo__cat {
+  font-family: var(--font-display);
+  font-size: .8125rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 8px;
+}
+.topo__title {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.75rem, 7vw, 2.5rem); line-height: 1.1;
+}
+
+/* ---------- avisos ---------- */
+.alerta {
+  font-size: .9375rem; line-height: 1.5;
+  padding: 16px 18px; margin-bottom: 32px;
+  border: 1px solid var(--linha);
+  border-left: 3px solid var(--lime);
+  border-radius: 12px;
+  background: rgba(249, 228, 215, .05);
+}
+.alerta strong { display: block; color: var(--lime); font-weight: 600; margin-bottom: 2px; }
+
+/* ---------- indice ---------- */
+.indice {
+  margin-bottom: 36px; padding: 18px 20px;
+  border: 1px solid var(--linha); border-radius: 14px;
+}
+.indice__titulo {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: .8125rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 10px;
+}
+.indice ol { list-style: none; counter-reset: item; }
+.indice li { counter-increment: item; }
+.indice li + li { border-top: 1px solid var(--linha); }
+.indice a {
+  display: block; padding: 10px 0; font-size: .9375rem;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: rgba(249, 228, 215, .25);
+}
+.indice a::before { content: counter(item) ". "; opacity: .5; }
+.indice a:hover { color: var(--lime); text-decoration-color: var(--lime); }
+
+/* ---------- produto ---------- */
+.produto {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  padding: 22px 0 28px;
+  border-top: 1px solid var(--linha);
+}
+.produto:first-of-type { border-top: none; padding-top: 0; }
+
+/* A partir de 640px cabe foto e tabela lado a lado. Abaixo disso a tabela
+   ficaria espremida demais para os numeros, entao empilha. */
+@media (min-width: 640px) {
+  .produto { grid-template-columns: 240px 1fr; gap: 28px; align-items: start; }
+  .produto__foto { max-width: none; }
+}
+
+.produto__foto {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(249, 228, 215, .04);
+  /* Empilhada, a foto nao deve ocupar a largura toda: numa tela de ~600px
+     viraria um quadrado de 600px e empurraria a tabela para fora da vista. */
+  max-width: 340px;
+}
+.produto__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Moldura vazia enquanto nao ha foto do produto. */
+.produto__foto--vazia {
+  border: 2px dashed rgba(249, 228, 215, .3);
+  display: grid; place-items: center;
+  text-align: center; padding: 16px;
+}
+.produto__foto--vazia span {
+  font-family: var(--font-display); font-size: .875rem;
+  font-weight: 600; opacity: .55; line-height: 1.4;
+}
+
+.produto__nome {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.25rem, 5vw, 1.5rem); line-height: 1.2;
+  color: var(--lime); margin-bottom: 4px;
+}
+.produto__porcao { font-size: .875rem; opacity: .75; margin-bottom: 12px; }
+
+/* ---------- selos de alergico ---------- */
+/* O texto vem literal do PDF; a cor so reforca a leitura rapida. */
+.selos { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.selo {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: .75rem; letter-spacing: .04em;
+  padding: 5px 11px; border-radius: 100px; border: 1px solid;
+}
+.selo--ok { color: var(--lime); border-color: rgba(195, 226, 14, .45); background: rgba(195, 226, 14, .08); }
+.selo--atencao { color: var(--atencao); border-color: rgba(255, 176, 32, .5); background: rgba(255, 176, 32, .1); }
+
+.alergicos {
+  font-size: .875rem; line-height: 1.45;
+  padding: 10px 12px; margin-bottom: 14px;
+  border-left: 3px solid var(--atencao);
+  background: rgba(255, 176, 32, .07);
+  border-radius: 0 8px 8px 0;
+}
+.alergicos strong { color: var(--atencao); font-weight: 600; }
+
+/* ---------- tabela ---------- */
+.tabela { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.tabela caption {
+  text-align: left; font-size: .75rem; opacity: .6;
+  padding-bottom: 8px;
+}
+.tabela th, .tabela td { padding: 9px 4px; border-bottom: 1px solid var(--linha); }
+.tabela thead th {
+  font-family: var(--font-display); font-size: .75rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--lime); opacity: .9;
+}
+.tabela tbody th { text-align: left; font-weight: 400; }
+.tabela td { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabela tbody tr:last-child th, .tabela tbody tr:last-child td { border-bottom: none; }
+.tabela .destaque th, .tabela .destaque td { font-weight: 600; color: var(--lime); }
+.tabela .sub th { padding-left: 16px; opacity: .8; }
+
+.tabela .un { font-weight: 400; opacity: .55; font-size: .8125rem; }
+
+.tabela__nota { font-size: .75rem; opacity: .6; margin-top: 10px; line-height: 1.45; }
+
+/* ---------- ingredientes ---------- */
+/* Recolhido por padrao: com 8 produtos, oito listas abertas tornariam a
+   rolagem no celular interminavel. Um toque abre. */
+.ingredientes { margin-top: 14px; }
+.ingredientes summary {
+  cursor: pointer; list-style: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: .875rem;
+  color: var(--lime); padding: 8px 0;
+}
+.ingredientes summary::-webkit-details-marker { display: none; }
+.ingredientes summary::before {
+  content: "+"; display: grid; place-items: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid rgba(195, 226, 14, .5); font-size: .875rem; line-height: 1;
+}
+.ingredientes[open] summary::before { content: "−"; }
+.ingredientes p { font-size: .8125rem; line-height: 1.6; opacity: .8; padding-bottom: 4px; }
+
+/* ---------- rodape ---------- */
+.rodape-nutri {
+  margin-top: 40px; padding-top: 28px;
+  border-top: 1px solid var(--linha);
+  text-align: center;
+}
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 58px; padding: 14px 28px; border-radius: 20px;
+  font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600;
+  line-height: 1.2; transition: transform .25s ease, filter .25s ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.btn--ghost { border: 2px solid var(--cream); color: var(--cream); }
+.btn--zap { background: #25d366; color: #fff; }
+.rodape-nutri .btn + .btn { margin-top: 12px; }
+
+.rodape-nutri__voltar {
+  display: inline-block; margin-top: 18px; font-size: .9375rem;
+  opacity: .7; text-decoration: underline; text-underline-offset: 3px;
+}
+.rodape-nutri__voltar:hover { opacity: 1; }
+.rodape-nutri__local { margin-top: 24px; font-size: .875rem; line-height: 1.5; opacity: .7; }
+.rodape-nutri__local strong { color: var(--lime); font-weight: 600; }

@@ -1,0 +1,1668 @@
+﻿/* Dr. Rafael Moretti — Prótese de Quadril | baseado no Figma SITE-MORETTI */
+:root {
+  --navy: #081a3d;
+  --navy-mid: #203050;
+  --blue: #437ae4;
+  --footer-rule: rgba(90, 156, 255, 0.6);
+  --footer-text-offset: calc(56px + 0.75rem);
+  --blue-bright: #4786ff;
+  --blue-dark: #012a79;
+  --blue-cta-from: #144bb7;
+  --blue-cta-to: #0a3382;
+  --text: #1e1e1e;
+  --text-soft: #dfdfdf;
+  --white: #fff;
+  --grey-bg: #d9d9d9;
+  --hero-bg: #e8e8e8;
+  --hero-border: #5d9cec;
+  --hero-title-navy: #002b70;
+  --hero-body: #333333;
+  --grey-card: #d4d4d4;
+  --radius: 15px;
+  --radius-hero: 18px;
+  --shadow-cta: 0 10px 12px 7px rgba(0, 0, 0, 0.06);
+  --max: 1200px;
+  /* hero ocupa quase a tela inteira (largura + altura), estilo Figma */
+  --max-hero: min(97vw, 1720px);
+  --hero-viewport-offset: 0rem;
+  --font: "Poppins", system-ui, sans-serif;
+
+  /*
+   * Hero — ajustes finos (edite no :root)
+   * --hero-card-shift-x: desloca a caixa branca inteira (título + texto). Positivo → direita, negativo → esquerda
+   * --hero-skeleton-shift-x: desloca só a ilustração do esqueleto (mesma lógica)
+   * --hero-skeleton-max-h-*: altura máxima da imagem
+   * --hero-skeleton-extra-scale: escala extra no <img> (1.1 = 10% maior)
+   * --hero-skeleton-overlap: puxa a ilustração para cima da borda da caixa (desktop); aumente para mais sobreposição
+   */
+  --hero-card-shift-x: 136px;
+  --hero-skeleton-overlap: clamp(2.5rem, 11vw, 7rem);
+  --hero-skeleton-shift-x: -90px;
+  --hero-skeleton-max-h-mobile: min(70vh, 420px);
+  --hero-skeleton-max-h-desktop: min(88vh, 820px);
+  --hero-skeleton-extra-scale: 1.25;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: clamp(16px, 1.05vw, 20px);
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--white);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.moretti-footer img,
+.moretti-footer svg {
+  max-width: none !important;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--max));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--blue);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Sections */
+.section {
+  padding: clamp(3rem, 6vw, 5.5rem) 0;
+  position: relative;
+}
+.section--hero {
+  background: var(--hero-bg);
+  /* quase tela cheia (altura útil abaixo do header) */
+  min-height: calc(100vh - var(--hero-viewport-offset));
+  min-height: calc(100dvh - var(--hero-viewport-offset));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(0.5rem, 2vh, 1.25rem);
+  padding-bottom: 0;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+.container.container--hero {
+  width: min(100% - clamp(0.5rem, 2vw, 1.25rem), var(--max-hero));
+  max-width: var(--max-hero);
+  margin-inline: auto;
+  overflow: visible;
+  flex: 0 1 auto;
+}
+.section--tight-top {
+  padding-top: 2rem;
+}
+.section--hero.section--tight-top {
+  padding-top: clamp(0.5rem, 2vh, 1.25rem);
+}
+
+.section__title {
+  font-weight: 600;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+}
+.section__title .light {
+  font-weight: 300;
+  color: inherit;
+}
+.section__title .accent {
+  color: var(--blue);
+}
+.section__title .on-dark {
+  color: var(--white);
+}
+
+.section__lead {
+  max-width: 48rem;
+  margin-bottom: 1.5rem;
+}
+.section__icon {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Hero — caixa só com borda (fundo = fundo da seção) + esqueleto por cima da borda (como no Figma) */
+.hero__layout {
+  display: grid;
+  gap: 1.75rem;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+@media (min-width: 900px) {
+  .hero__layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 44%);
+    gap: 0;
+    align-items: stretch;
+    padding-block: clamp(0.5rem, 2vh, 1.5rem) 0;
+    min-height: min(calc(100dvh - var(--hero-viewport-offset) - 2rem), 920px);
+    min-height: min(calc(100vh - var(--hero-viewport-offset) - 2rem), 920px);
+  }
+}
+.hero__card {
+  border: 1px solid var(--hero-border);
+  border-radius: var(--radius-hero);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  transform: translateX(var(--hero-card-shift-x));
+  align-self: center;
+}
+@media (min-width: 900px) {
+  .hero__card {
+    max-width: none;
+  }
+}
+.hero__card-head {
+  --hero-head-pad-x: clamp(1.35rem, 3vw, 2.25rem);
+  padding: clamp(1.35rem, 2.8vw, 2.1rem) var(--hero-head-pad-x)
+    clamp(0.85rem, 1.5vw, 1.1rem);
+}
+.hero__card-body {
+  padding: clamp(1rem, 2vw, 1.35rem) clamp(1.35rem, 3vw, 2.25rem)
+    clamp(1.35rem, 2.8vw, 2.1rem);
+  color: var(--hero-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.65;
+}
+.hero__card-body p {
+  margin: 0 0 1rem;
+}
+.hero__card-body p:last-child {
+  margin-bottom: 0;
+}
+.hero__card-body strong {
+  font-weight: 700;
+  color: inherit;
+}
+/* Linha entre título e texto: largura total da caixa (até as bordas internas) */
+.hero__divider {
+  height: 1px;
+  margin-top: clamp(0.85rem, 1.5vw, 1.15rem);
+  margin-left: calc(-1 * var(--hero-head-pad-x, 1.5rem));
+  margin-right: calc(-1 * var(--hero-head-pad-x, 1.5rem));
+  width: calc(100% + 2 * var(--hero-head-pad-x, 1.5rem));
+  max-width: none;
+  box-sizing: border-box;
+  background: var(--hero-border);
+  opacity: 0.85;
+  border-radius: 1px;
+}
+.hero__kicker {
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.65vw, 1.35rem);
+  color: var(--hero-border);
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+.hero__title {
+  font-weight: 700;
+  font-size: clamp(2.15rem, 4.2vw, 3.35rem);
+  color: var(--hero-title-navy);
+  margin: 0 0 0.65rem;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.hero__subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+.hero__subtitle-line {
+  display: block;
+  width: clamp(2.75rem, 6vw, 4.5rem);
+  height: 2px;
+  background: var(--hero-border);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.hero__subtitle {
+  font-weight: 600;
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+  color: var(--blue);
+  margin: 0;
+  line-height: 1.3;
+}
+.hero__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+  justify-self: stretch;
+  transform: translateX(var(--hero-skeleton-shift-x));
+  overflow: visible;
+  pointer-events: none;
+}
+@media (min-width: 900px) {
+  .hero__figure {
+    justify-content: flex-end;
+    align-items: center;
+    align-self: center;
+    /* encosta a ilustração na caixa e sobrepõe a borda direita */
+    margin-left: calc(-1 * var(--hero-skeleton-overlap));
+  }
+}
+.hero__figure img {
+  max-height: min(85vw, var(--hero-skeleton-max-h-mobile));
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: right center;
+  transform: scaleX(-1) scale(var(--hero-skeleton-extra-scale));
+  transform-origin: center center;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.12));
+  pointer-events: auto;
+}
+@media (min-width: 900px) {
+  .hero__figure img {
+    max-height: var(--hero-skeleton-max-h-desktop);
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 899px) {
+  .hero__layout {
+    padding-bottom: 0.25rem;
+  }
+  :root {
+    --hero-card-shift-x: 0px;
+    --hero-skeleton-shift-x: 0px;
+    --hero-skeleton-extra-scale: 1;
+    --hero-viewport-offset: 4.5rem;
+    --max-hero: 100%;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  .hero__card {
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero__figure {
+    transform: none;
+    margin-left: 0 !important;
+    width: 100%;
+  }
+  .hero__figure img {
+    transform: scaleX(-1);
+    max-width: min(92vw, 340px);
+    margin-inline: auto;
+  }
+  .section--hero {
+    min-height: auto;
+    padding-bottom: 1.5rem;
+  }
+  main,
+  .section,
+  .container {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+}
+
+/* Indications */
+.section--indications {
+  background: linear-gradient(132deg, var(--navy) 43%, var(--blue-dark) 97%);
+  color: var(--text-soft);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  /* fundo azul sobe um pouco; título e cards ficam sempre acima do PNG do hero */
+  margin-top: clamp(-2.25rem, -4.5vw, -1rem);
+  padding-top: clamp(3rem, 5.5vw, 4.75rem);
+}
+.section--indications::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../images/bg-surgeons.jpg") center / cover no-repeat;
+  opacity: 0.05;
+  pointer-events: none;
+}
+.section--indications .container {
+  position: relative;
+  z-index: 1;
+}
+.section--indications .section__title {
+  text-align: center;
+  max-width: 55rem;
+  margin-inline: auto;
+}
+.section--indications .accent {
+  color: var(--blue);
+}
+.hint {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto 2.5rem;
+  font-size: 1rem;
+}
+.cards-5 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .cards-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .cards-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.ind-card {
+  border: 1px solid var(--blue);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem 1.25rem;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(8, 26, 61, 0.35);
+}
+.ind-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+.ind-card p {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-weight: 300;
+}
+.row-2-lower {
+  margin-top: 0;
+}
+@media (min-width: 1100px) {
+  .row-2-lower {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 740px;
+    margin-inline: auto;
+  }
+}
+.ind-footnote {
+  text-align: center;
+  margin: 2rem auto 0;
+  max-width: 50rem;
+}
+.ind-footnote__lead {
+  color: #fff;
+  font-weight: 400;
+}
+.ind-footnote__accent {
+  color: var(--blue-bright);
+  font-weight: 700;
+}
+
+/* Tipos — seção toda em cinza (entre o bloco azul de indicações e o seguinte) */
+.section--tipos {
+  background: var(--grey-bg);
+}
+.section--tipos .section__head {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.section--tipos .section__head .section__icon {
+  width: clamp(64px, 16vw, 88px);
+  height: auto;
+  margin: 0;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.section--tipos .section__title.mt-0 {
+  margin: 0;
+  flex: 1 1 min(100%, 12rem);
+  text-align: left;
+  max-width: 32rem;
+}
+.tipos-intro {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+}
+.cards-compare {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 768px) {
+  .cards-compare {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.compare-card {
+  border: 1px solid var(--navy-mid);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.compare-card__head {
+  background: var(--navy-mid);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem 1.25rem;
+  margin: 0;
+}
+.compare-card__body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  background: transparent;
+}
+.subsection-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  color: var(--navy-mid);
+  margin: 2rem 0 1rem;
+}
+.subsection-title--materials {
+  color: var(--blue);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.tipos-materiais {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.25rem, 2.5vw, 2rem);
+  box-sizing: border-box;
+}
+.tipos-materiais .subsection-title--materials {
+  margin-top: 0;
+}
+/* “Escolha personalizada” depois dos materiais — gap ~56px como no Figma */
+.tipos-materiais + .subsection-title--materials {
+  margin-top: 0.5rem;
+}
+.tipos-materiais .tipos-intro--after-compare {
+  color: var(--text);
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+/* Materiais: faixa azul arredondada + texto solto no cinza (referência Figma) */
+.tipos-materiais .mat-block {
+  max-width: 58rem;
+  margin: 0 auto 2.25rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+.tipos-materiais .mat-block:last-child {
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+.tipos-materiais .mat-block__head {
+  background: var(--blue);
+  color: var(--white);
+  font-weight: 600;
+  padding: clamp(0.95rem, 1.8vw, 1.15rem) clamp(1.25rem, 3vw, 2rem);
+  margin: 0 auto 1.1rem;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  text-align: center;
+  border: none;
+  border-radius: var(--radius);
+  max-width: 58rem;
+}
+.tipos-materiais .mat-block__body {
+  background: transparent;
+  color: var(--text);
+  padding: 0 0.5rem;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.65;
+  max-width: 48rem;
+}
+.personal-msg {
+  text-align: center;
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  font-size: 0.95rem;
+}
+
+/* Quando — foto de fundo em cover + overlay azul (legível como no layout) */
+.section--quando {
+  --quando-overlay: linear-gradient(
+    115deg,
+    rgba(8, 26, 61, 0.88) 0%,
+    rgba(8, 26, 61, 0.72) 42%,
+    rgba(1, 42, 121, 0.78) 100%
+  );
+  background-color: var(--navy);
+  background-image: var(--quando-overlay), url("../images/recovery-bed.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: var(--white);
+  overflow: hidden;
+}
+.section--quando .container {
+  position: relative;
+  z-index: 1;
+}
+.section--quando .section__title.section__title--quando {
+  text-align: center;
+  font-weight: 700;
+}
+.section--quando .section__title.section__title--quando .light {
+  font-weight: 700;
+}
+.section--quando .section__title.section__title--quando .on-dark {
+  color: var(--white);
+}
+.quando-intro {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto 2rem;
+  color: var(--white);
+}
+.quando-intro .accent-text {
+  color: var(--blue-bright);
+  font-weight: 700;
+}
+.quando-sub {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--white);
+}
+.section--quando .symptoms {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .section--quando .symptoms {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.section--quando .symptom {
+  background: rgba(8, 26, 61, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  min-height: 158px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  backdrop-filter: blur(4px);
+}
+.section--quando .symptom img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+  filter: brightness(0) invert(1);
+}
+.section--quando .symptom p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--white);
+  line-height: 1.45;
+}
+.sym-row-2 {
+  display: contents;
+}
+@media (min-width: 768px) {
+  .sym-row-2 {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+.quando-outro {
+  text-align: center;
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  color: var(--white);
+}
+
+/* Procedimento — cartão superior (Figma) + imagem + cartão navy com overlap */
+.section--procedimento {
+  background: var(--grey-bg);
+}
+.proc-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+.proc-top-card {
+  max-width: 56rem;
+  margin-inline: auto;
+  width: 100%;
+}
+.proc-top-card__head {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  background: var(--navy-mid);
+  color: var(--white);
+  padding: clamp(1rem, 2.5vw, 1.35rem) clamp(1.15rem, 3vw, 1.75rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.proc-top-card__icon {
+  width: clamp(56px, 12vw, 88px);
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.proc-top-card__title {
+  margin: 0;
+  flex: 1 1 min(100%, 14rem);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 3.2vw, 2.35rem);
+  line-height: 1.15;
+  text-align: left;
+}
+.proc-top-card__title .accent {
+  color: var(--blue);
+  font-weight: 700;
+}
+.proc-top-card__title-light {
+  color: var(--white);
+  font-weight: 700;
+}
+.proc-top-card__body {
+  background: transparent;
+  border: 1px solid var(--navy-mid);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
+  color: var(--text);
+  font-weight: 400;
+  line-height: 1.6;
+}
+.proc-top-card__body p {
+  margin: 0;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.proc-split {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+.proc-split__figure {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--grey-card);
+  box-shadow: 0 8px 32px rgba(8, 26, 61, 0.1);
+  align-self: center;
+  width: 100%;
+  max-width: 36rem;
+}
+.proc-split__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(72vh, 580px);
+  object-fit: contain;
+  object-position: center;
+}
+.proc-split__box {
+  background: var(--navy-mid);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: clamp(1.35rem, 3.5vw, 2.1rem);
+  font-weight: 300;
+  line-height: 1.55;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 12px 40px rgba(8, 26, 61, 0.18);
+}
+.proc-split__box p {
+  margin: 0 0 1.1rem;
+}
+.proc-split__box p:last-child {
+  margin-bottom: 0;
+}
+.proc-split__accent {
+  color: var(--blue);
+  font-weight: 400;
+}
+@media (min-width: 900px) {
+  .proc-split {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+  }
+  .proc-split__figure {
+    flex: 1 1 54%;
+    max-width: none;
+    margin-right: -2.75rem;
+    z-index: 1;
+    align-self: center;
+  }
+  .proc-split__box {
+    flex: 1 1 46%;
+    min-width: min(100%, 20rem);
+  }
+}
+
+.proc-after {
+  text-align: center;
+  max-width: 52rem;
+  margin-inline: auto;
+  padding-top: 0.25rem;
+  color: var(--text);
+}
+.proc-after__lead {
+  margin: 0 0 0.85rem;
+  font-weight: 700;
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.55;
+}
+.proc-after__note {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.6;
+}
+
+/* Robótica: mesmo fundo (foto + gradiente) nas duas secções; fixed alinha a imagem no viewport e evita “corte” a meio do bloco */
+.section--robotica-intro,
+.section--robotica-benefits {
+  background: linear-gradient(100deg, var(--navy) 36%, var(--blue-dark) 75%);
+  color: var(--text-soft);
+}
+.section--robotica-intro::before,
+.section--robotica-benefits::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../images/bg-or-dim.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+.section--robotica-intro .container,
+.section--robotica-benefits .container {
+  position: relative;
+  z-index: 1;
+}
+.section--robotica-intro .section__title {
+  text-align: center;
+}
+.robot-intro-text {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+.robot-intro-text .accent {
+  color: var(--blue);
+}
+
+/* Robótica card — layout Figma: moldura clara, 50/50, imagem à altura total */
+.section--robotica-benefits {
+  padding-top: 1rem;
+}
+.robot-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: stretch;
+  max-width: 1176px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: clamp(16px, 2.2vw, 22px);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+@media (min-width: 900px) {
+  .robot-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.robot-benefits {
+  padding: clamp(2.25rem, 5.5vw, 3.75rem) clamp(1.75rem, 4vw, 3.5rem)
+    clamp(2.25rem, 5.5vw, 3.75rem) clamp(2rem, 4.5vw, 3.75rem);
+  background: var(--white);
+  text-align: left;
+}
+.robot-benefits h3 {
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  font-weight: 700;
+  margin: 0 0 1.35rem;
+  color: var(--text);
+  line-height: 1.3;
+}
+.robot-benefits ul {
+  margin: 0;
+  padding-left: 1.4rem;
+  font-weight: 400;
+  font-size: clamp(0.92rem, 1.05vw, 0.98rem);
+  color: #3a3a3a;
+  line-height: 1.65;
+}
+.robot-benefits li {
+  margin-bottom: 0.85rem;
+}
+.robot-benefits li:last-child {
+  margin-bottom: 0;
+}
+.robot-benefits li::marker {
+  color: var(--text);
+}
+.robot-benefits__figure {
+  margin: 0;
+  position: relative;
+  min-height: 280px;
+  align-self: stretch;
+  overflow: hidden;
+}
+.robot-benefits__figure img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+@media (min-width: 900px) {
+  .robot-benefits__figure {
+    min-height: 100%;
+  }
+}
+.robot-footnote {
+  text-align: center;
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+.robot-footnote > p:first-child {
+  margin: 0 0 1.1rem;
+}
+.robot-footnote__emphasis {
+  margin: 0;
+  font-weight: 700;
+  color: var(--white);
+}
+.robot-footnote strong {
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* Recuperação — faixa branca; hero sobe para o topo da foto “assentar” ~na metade da faixa (layout Figma) */
+.section.section--recuperacao {
+  --rec-white-strip: clamp(1.35rem, 3.5vw, 2.75rem);
+  padding: 0 0 clamp(2.75rem, 6vw, 5rem);
+  background: var(--blue);
+  color: var(--white);
+  position: relative;
+}
+.section--recuperacao::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: var(--rec-white-strip);
+  background: var(--white);
+}
+.rec-container {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(1.5rem, 4vw, 2.25rem);
+  box-sizing: border-box;
+}
+.rec-hero-wrap {
+  /* topo do cartão (~meio da faixa branca): metade da faixa acima do fim do ::before */
+  margin-top: calc(var(--rec-white-strip) * -0.5);
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+.rec-hero {
+  text-align: center;
+  width: 100%;
+  max-width: 1176px;
+  margin: 0 auto clamp(2rem, 4vw, 2.75rem);
+  box-sizing: border-box;
+}
+.rec-hero__media {
+  margin: 0;
+  height: clamp(168px, 26vw, 228px);
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  line-height: 0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+.rec-hero__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.rec-hero__title {
+  margin: clamp(-1.15rem, -2.8vw, -0.65rem) auto 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 100%;
+  background: var(--navy);
+  color: var(--white);
+  padding: clamp(0.85rem, 2vw, 1.15rem) clamp(1rem, 2.5vw, 1.5rem);
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-size: clamp(0.98rem, 2.2vw, 1.22rem);
+  font-weight: 400;
+  line-height: 1.35;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+.rec-hero__title strong {
+  font-weight: 700;
+  color: var(--white);
+}
+.rec-intro {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto 1.75rem;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.6;
+  font-weight: 400;
+}
+.rec-intro > p {
+  margin: 0 0 1.15rem;
+}
+.rec-intro > p:last-child {
+  margin-bottom: 0;
+}
+.rec-intro__emphasis {
+  font-weight: 700;
+  color: var(--white);
+}
+.rec-subtitle {
+  text-align: center;
+  margin: 0 auto 1.5rem;
+  font-size: clamp(1.02rem, 1.2vw, 1.12rem);
+  font-weight: 600;
+  color: var(--white);
+}
+.rec-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 720px) {
+  .rec-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem 1rem;
+  }
+  .rec-card:nth-child(1) {
+    grid-column: 1 / 3;
+  }
+  .rec-card:nth-child(2) {
+    grid-column: 3 / 5;
+  }
+  .rec-card:nth-child(3) {
+    grid-column: 5 / 7;
+  }
+  .rec-card:nth-child(4) {
+    grid-column: 2 / 4;
+  }
+  .rec-card:nth-child(5) {
+    grid-column: 4 / 6;
+  }
+}
+.rec-card {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 1.35rem 1rem;
+  text-align: center;
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+.rec-card img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.rec-card img.rec-card__img--natural {
+  filter: none;
+  width: clamp(52px, 14vw, 72px);
+  height: clamp(52px, 14vw, 72px);
+}
+.rec-card p {
+  margin: 0;
+  font-size: clamp(0.86rem, 1vw, 0.93rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.45;
+}
+.rec-closing {
+  text-align: center;
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.6;
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* Médico — Figma: painel azul arredondado atrás da foto (cabeça “sai” por cima); título com traço azul na coluna direita */
+.section--medico {
+  background: var(--white);
+  /* painel atrás do Dr.: % da altura da figure — subir/descer com top; encurtar cauda com height */
+  --medico-panel-top: 28%;
+  --medico-panel-height: 52%;
+  /* deslocar foto + retângulo azul juntos (negativo = sobe). Não uses translateY no <img> — só aqui. */
+  --medico-photo-shift-y: -204px;
+}
+.medico-block {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: 0;
+  align-items: start;
+  --medico-bg-gap: clamp(2rem, 4vw, 3rem);
+}
+.medico-block__img {
+  margin: 0;
+  position: relative;
+  padding: 0;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+  align-self: start;
+  transform: translateY(var(--medico-photo-shift-y));
+}
+/* Painel azul: % em relação à figure (= altura da foto) */
+.medico-block__img::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  width: 84%;
+  top: var(--medico-panel-top);
+  height: var(--medico-panel-height);
+  bottom: auto;
+  background: var(--blue);
+  border-radius: var(--radius);
+  z-index: 0;
+  box-shadow: 0 14px 36px rgba(67, 122, 228, 0.28);
+}
+.medico-block__img img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom center;
+  transform: none;
+  filter: drop-shadow(0 12px 24px rgba(8, 26, 61, 0.12));
+}
+.medico-block__title {
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+}
+.medico-block__title strong {
+  color: var(--blue);
+  font-weight: 600;
+}
+.medico-block__title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 0.7rem;
+  margin-bottom: 0;
+  background: var(--blue);
+  border-radius: 2px;
+}
+.medico-block__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: none;
+  word-break: normal;
+  overflow-wrap: break-word;
+  row-gap: clamp(0.95rem, 2.2vw, 1.2rem);
+}
+.medico-block__text p {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 1em;
+}
+.medico-block__lede {
+  color: var(--blue);
+  font-weight: 700;
+}
+.exp-panel {
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 28px rgba(8, 26, 61, 0.12);
+  background: #4479e2;
+}
+@media (min-width: 900px) {
+  .exp-panel {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+.exp-panel__media {
+  margin: 0;
+  flex-shrink: 0;
+}
+@media (min-width: 900px) {
+  .exp-panel__media {
+    width: 45%;
+  }
+}
+.exp-panel__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.exp-panel__aside {
+  background: #4479e2;
+  padding: clamp(1.85rem, 3.5vw, 2.65rem) clamp(1.65rem, 3vw, 2.25rem);
+  color: var(--navy);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.exp-panel__title {
+  margin: 0 0 clamp(1.15rem, 2.2vw, 1.5rem);
+  padding-left: 1.35rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.3em;
+  font-size: clamp(1.02rem, 1.35vw, 1.22rem);
+  line-height: 1.32;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.exp-panel__title-line {
+  display: inline;
+}
+.exp-panel__title-line--emphasis {
+  color: #fff;
+  font-weight: 700;
+}
+.exp-panel__title-line--sub {
+  color: var(--navy);
+  font-weight: 400;
+}
+.exp-panel__aside .exp-panel__list {
+  margin: 0;
+  padding-left: 1.35rem;
+  list-style-type: disc;
+  font-size: clamp(1.08rem, 1.35vw, 1.22rem);
+  font-weight: 700;
+  line-height: 1.72;
+  text-align: left;
+}
+.exp-panel__aside .exp-panel__list li {
+  margin-bottom: clamp(1.15rem, 1.85vw, 1.65rem);
+}
+.exp-panel__aside .exp-panel__list li:last-child {
+  margin-bottom: 0;
+}
+.exp-panel__aside .exp-panel__list strong {
+  font-weight: 700;
+  color: inherit;
+}
+.medico-bottom-text {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: none;
+  word-break: normal;
+  overflow-wrap: break-word;
+  row-gap: clamp(1rem, 2.5vw, 1.35rem);
+  box-sizing: border-box;
+}
+@media (min-width: 900px) {
+  .medico-block {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: var(--medico-bg-gap);
+    /* Só o espaço necessário entre a linha da foto/texto e o bloco dos 4 parágrafos */
+    row-gap: clamp(0.5rem, 1.25vw, 0.875rem);
+  }
+  .medico-block__img {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .medico-block__text {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .medico-bottom-text {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    /* Mesmo offset que a foto (translateY negativo): a linha da grelha segue a caixa “alta” da figure */
+    margin-top: var(--medico-photo-shift-y);
+  }
+}
+.medico-bottom-text p {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 1em;
+  font-weight: 400;
+}
+.medico-bottom-text__strong strong {
+  color: var(--text);
+  font-weight: 700;
+}
+.medico-bottom-text__accent {
+  color: var(--blue);
+  font-weight: 700;
+}
+.medico-bottom-text p .medico-bottom-text__accent {
+  color: var(--blue);
+}
+/* CTA médico — layout centrado: linha 1 ícone+texto como bloco; linha 2 em negrito centrada */
+.medico-cta {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 0;
+  padding-bottom: clamp(0.5rem, 2vw, 1rem);
+  text-align: center;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--white);
+}
+.medico-cta__intro {
+  max-width: 48rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.medico-cta__lead {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0;
+  max-width: min(40rem, 100%);
+  text-align: left;
+  color: var(--text);
+  font-weight: 400;
+  line-height: 1.45;
+}
+.medico-cta__icon {
+  flex: 0 0 auto;
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-top: 0.15em;
+  font-style: normal;
+}
+.medico-cta__lead-txt {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+@media (min-width: 1100px) {
+  .medico-cta__lead {
+    max-width: none;
+  }
+  .medico-cta__lead-txt {
+    white-space: nowrap;
+  }
+}
+.medico-cta__emphasis {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--text);
+  font-weight: 400;
+}
+.medico-cta__emphasis strong {
+  font-weight: 700;
+  color: #000;
+}
+.medico-cta__button-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.85rem, 3.2vw, 2.4rem);
+}
+.medico-cta__note {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* CTAs */
+.cta-bar {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.btn-cta {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--blue-cta-from), var(--blue-cta-to));
+  color: var(--white);
+  box-shadow: var(--shadow-cta);
+  max-width: 100%;
+}
+.btn-cta:hover {
+  filter: brightness(1.06);
+}
+.btn-cta--medico {
+  font-weight: 700;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  padding: 1.05rem 1.65rem;
+  background: linear-gradient(180deg, #437ae4 0%, #144bb7 42%, #0a3382 78%, #081a3d 100%);
+  box-shadow: 0 10px 24px rgba(8, 26, 61, 0.22);
+}
+.btn-cta--medico:hover {
+  filter: brightness(1.05);
+}
+.btn-cta--robotica {
+  background: var(--blue);
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+.btn-cta--robotica:hover {
+  filter: brightness(1.08);
+}
+
+/* Footer — Figma: fundo navy sólido; intro → traços + destaques → pills azuis com texto navy */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.96);
+  padding: clamp(3rem, 5vw, 4.5rem) 0 2rem;
+}
+.footer-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  font-weight: 300;
+  margin: 0 0 2.5rem;
+  color: #fff;
+}
+.footer-title img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.footer-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 380px;
+    align-items: start;
+  }
+}
+.footer-map {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+}
+.footer-map img {
+  width: 100%;
+  display: block;
+}
+.footer-copy {
+  padding-left: var(--footer-text-offset);
+  max-width: 42rem;
+  box-sizing: border-box;
+}
+.footer-copy p {
+  margin: 0 0 1.25rem;
+  max-width: none;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  font-weight: 300;
+}
+.footer-copy p:last-child {
+  margin-bottom: 0;
+}
+.footer-highlights {
+  margin-top: 1.5rem;
+  max-width: 42rem;
+  border-top: 1px solid var(--footer-rule);
+}
+.footer-highlight {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 1.25rem;
+  align-items: center;
+  padding: 1.25rem 0;
+}
+.footer-highlight + .footer-highlight {
+  border-top: 1px solid var(--footer-rule);
+}
+.footer-contact-pills {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  margin-left: var(--footer-text-offset);
+  padding: 0;
+  width: min(32rem, 100%);
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-sizing: border-box;
+}
+.footer-contact-pills li {
+  margin: 0;
+}
+.footer-contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.15rem;
+  background: var(--blue);
+  color: var(--navy);
+  text-decoration: none;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+  box-sizing: border-box;
+  min-height: 2.75rem;
+  transition: filter 0.15s ease;
+}
+.footer-contact-pill:hover {
+  filter: brightness(1.07);
+}
+.footer-contact-pill img {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.footer-contact-pill__email {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-highlight__icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  justify-self: start;
+}
+.footer-highlight__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: inherit;
+}
+.footer-note {
+  margin-top: 1.75rem;
+  font-size: 0.95rem;
+  max-width: 42rem;
+  padding-left: var(--footer-text-offset);
+  box-sizing: border-box;
+  font-weight: 300;
+  line-height: 1.55;
+}
+.cta-bar--footer {
+  justify-content: flex-start;
+  padding: 1rem 0 0;
+  padding-left: var(--footer-text-offset);
+}
+.footer-final {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* Util */
+.text-center {
+  text-align: center;
+}
+.mt-0 {
+  margin-top: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Espaçamento da seção "Quais os tipos de prótese de quadril?"
+   Sobravam 118px vazios entre o botão e o fim da seção (86px do padding da
+   própria seção + 32px do padding da .cta-bar). Reduzido apenas aqui, para
+   não mexer no ritmo das demais seções.
+   -------------------------------------------------------------------------- */
+.section--tipos .cta-bar {
+  padding-bottom: 0;
+}
+
+.section--tipos {
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* -----------------------------------------------------------------------------
+   Cards de "o que esperar nas primeiras semanas".
+   Estavam achatados (389x147, proporção 2,6:1): o ícone e o texto ficavam
+   espremidos contra o topo. Altura mínima agora acompanha a largura da tela.
+   -------------------------------------------------------------------------- */
+.rec-card {
+  min-height: clamp(128px, 14vw, 200px);
+  justify-content: center;
+  gap: 0.9rem;
+}
