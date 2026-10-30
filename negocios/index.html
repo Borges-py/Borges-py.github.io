@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedro Borges · Sites e atendimento automático para negócios de Curitiba</title>
+  <meta name="description" content="Sites, cardápios digitais, atendimento automático no WhatsApp e sistemas sob medida para comércios e prestadores de serviço de Curitiba. Avaliação grátis do seu negócio.">
+  <meta property="og:title" content="Seu negócio aparecendo e vendendo no celular do cliente">
+  <meta property="og:description" content="Sites, cardápios digitais e atendimento automático no WhatsApp para negócios de Curitiba. Peça uma avaliação grátis.">
+  <meta name="theme-color" content="#0f3d2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap">
+  <style>
+    :root {
+      --verde: #0f3d2e; --verde-2: #17694d; --verde-claro: #e6f4ec;
+      --laranja: #f97316; --laranja-escuro: #c2410c;
+      --creme: #fbf7f0; --texto: #1c2522; --suave: #5b6863; --borda: #e7e1d6; --branco: #fff;
+      --zap: #25d366; --raio: 20px; --sombra: 0 2px 6px rgba(15,61,46,.06), 0 14px 34px rgba(15,61,46,.09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--texto); background: var(--creme); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .ms { font-family: "Material Symbols Rounded"; font-weight: normal; font-style: normal; font-size: 22px; line-height: 1; vertical-align: middle; font-variation-settings: "FILL" 1; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    h1, h2 { font-family: Fraunces, Georgia, serif; letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+    h2 { font-size: clamp(28px, 4.5vw, 40px); }
+    section { padding: 64px 0; }
+    .eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--laranja-escuro); margin-bottom: 10px; }
+    .lead { color: var(--suave); font-size: 18px; max-width: 640px; margin: 12px 0 0; }
+
+    /* botões */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; border-radius: 16px; font-weight: 700; font-size: 17px; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; transition: transform .15s, box-shadow .15s; }
+    .btn:active { transform: scale(.98); }
+    .btn--zap { background: var(--zap); color: #06381c; box-shadow: 0 10px 24px rgba(37,211,102,.35); }
+    .btn--zap:hover { box-shadow: 0 14px 30px rgba(37,211,102,.45); }
+    .btn--claro { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.3); }
+    .btn--borda { background: var(--branco); color: var(--verde); border: 2px solid var(--verde); }
+
+    /* topo */
+    .hero { background: radial-gradient(900px 420px at 90% -10%, rgba(249,115,22,.35), transparent 60%), radial-gradient(700px 400px at -10% 110%, rgba(37,211,102,.22), transparent 60%), var(--verde); color: #fff; padding: 28px 0 72px; overflow: hidden; }
+    .topo { display: flex; align-items: center; gap: 12px; margin-bottom: 44px; }
+    .topo .marca { font-weight: 800; font-size: 18px; }
+    .topo .marca small { display: block; font-weight: 500; font-size: 13px; opacity: .75; }
+    .topo a { margin-left: auto; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; opacity: .9; }
+    .avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--laranja), #fbbf24); display: grid; place-items: center; font-weight: 800; color: var(--verde); flex: none; overflow: hidden; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .para { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); padding: 8px 14px; border-radius: 999px; font-size: 15px; margin-bottom: 18px; }
+    .para.on { display: inline-flex; }
+    .hero h1 { font-size: clamp(36px, 7vw, 64px); max-width: 860px; }
+    .hero h1 em { font-style: normal; color: #fdba74; }
+    .hero p { font-size: clamp(18px, 2.4vw, 21px); color: #d6eadf; max-width: 640px; margin: 18px 0 30px; }
+    .hero .acoes { display: flex; gap: 12px; flex-wrap: wrap; }
+    .selos { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 30px; font-size: 15px; color: #cfe5d8; }
+    .selos span { display: inline-flex; gap: 6px; align-items: center; }
+    .selos .ms { color: #86efac; font-size: 20px; }
+
+    /* dores */
+    .dores { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 30px; }
+    .dor { background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); padding: 22px; box-shadow: var(--sombra); }
+    .dor .ms { font-size: 30px; color: var(--laranja); background: #fff1e6; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 16px; margin-bottom: 14px; }
+    .dor strong { display: block; font-size: 18px; margin-bottom: 6px; line-height: 1.3; }
+    .dor p { margin: 0; color: var(--suave); font-size: 16px; }
+
+    /* serviços */
+    .servicos { background: var(--branco); }
+    .grid-serv { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 30px; }
+    .serv { border-radius: var(--raio); padding: 24px; background: var(--creme); border: 1px solid var(--borda); }
+    .serv .ms { font-size: 28px; color: #fff; background: var(--verde-2); width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; margin-bottom: 14px; }
+    .serv h3 { margin: 0 0 6px; font-size: 19px; }
+    .serv p { margin: 0; color: var(--suave); font-size: 16px; }
+
+    /* escolha do negócio */
+    .abas { display: flex; gap: 10px; flex-wrap: wrap; margin: 26px 0 22px; }
+    .aba { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--borda); background: var(--branco); font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--texto); }
+    .aba .ms { color: var(--verde-2); }
+    .aba[aria-selected="true"] { border-color: var(--verde); background: var(--verde); color: #fff; }
+    .aba[aria-selected="true"] .ms { color: #fdba74; }
+    .painel { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 22px; align-items: start; }
+    .painel > *, .exemplo > span { min-width: 0; }
+    .exemplos { display: grid; gap: 14px; }
+    .exemplo { display: flex; gap: 16px; align-items: center; background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); padding: 16px; box-shadow: var(--sombra); cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; transition: transform .15s, border-color .15s; }
+    .exemplo:hover { transform: translateY(-2px); border-color: var(--verde-2); }
+    .exemplo img { width: 96px; height: 72px; border-radius: 12px; object-fit: cover; flex: none; background: var(--verde-claro); }
+    .exemplo strong { display: block; font-size: 17px; }
+    .exemplo span { color: var(--suave); font-size: 15px; line-height: 1.4; display: block; }
+    .exemplo .ir { margin-left: auto; color: var(--verde-2); font-size: 28px; flex: none; }
+    .ganhos { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .ganhos li { display: flex; gap: 10px; font-size: 16px; }
+    .ganhos .ms { color: var(--verde-2); font-size: 22px; }
+
+    /* celular com o atendente */
+    .celular { background: #111; border-radius: 34px; padding: 10px; box-shadow: 0 24px 60px rgba(15,61,46,.25); max-width: 400px; width: 100%; justify-self: center; }
+    .tela { background: #efe7dd; border-radius: 26px; overflow: hidden; display: flex; flex-direction: column; height: 560px; }
+    .tela__topo { background: #075e54; color: #fff; display: flex; gap: 10px; align-items: center; padding: 12px 14px; }
+    .tela__topo .avatar { width: 38px; height: 38px; font-size: 14px; }
+    .tela__topo strong { display: block; font-size: 15px; }
+    .tela__topo small { font-size: 12px; opacity: .8; }
+    .msgs { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .msg { max-width: 84%; padding: 8px 11px; border-radius: 10px; font-size: 15px; line-height: 1.4; box-shadow: 0 1px 1px rgba(0,0,0,.08); white-space: pre-line; animation: entra .2s ease; }
+    @keyframes entra { from { opacity: 0; transform: translateY(4px); } }
+    .msg--eles { background: #fff; align-self: flex-start; border-top-left-radius: 2px; }
+    .msg--cliente { background: #d9fdd3; align-self: flex-end; border-top-right-radius: 2px; }
+    .msg small { display: block; text-align: right; font-size: 11px; color: #667; margin-top: 2px; }
+    .digitando { align-self: flex-start; background: #fff; padding: 8px 12px; border-radius: 10px; font-size: 14px; color: #667; }
+    .sugestoes { display: flex; gap: 6px; padding: 8px 10px 0; overflow-x: auto; background: #efe7dd; }
+    .sugestoes button { flex: none; border: 1px solid #c8d8cc; background: #fff; border-radius: 999px; padding: 7px 12px; font: inherit; font-size: 14px; cursor: pointer; color: #075e54; font-weight: 600; }
+    .escrever { display: flex; gap: 8px; padding: 10px; background: #efe7dd; }
+    .escrever input { flex: 1; border: 0; border-radius: 999px; padding: 12px 16px; font: inherit; font-size: 15px; outline: none; }
+    .escrever button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: #075e54; color: #fff; cursor: pointer; display: grid; place-items: center; }
+    .nota-chat { text-align: center; font-size: 13px; color: var(--suave); margin-top: 10px; }
+
+    /* avaliação grátis e passos */
+    .avaliacao { background: var(--verde); color: #fff; border-radius: 28px; padding: clamp(28px, 5vw, 48px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; }
+    .avaliacao p { color: #d6eadf; }
+    .avaliacao ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+    .avaliacao li { display: flex; gap: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; padding: 14px 16px; }
+    .avaliacao li .ms { color: #fdba74; }
+    .passos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 30px; counter-reset: passo; }
+    .passo { position: relative; padding: 26px 22px 22px; background: var(--branco); border-radius: var(--raio); border: 1px solid var(--borda); }
+    .passo::before { counter-increment: passo; content: counter(passo); position: absolute; top: -16px; left: 22px; width: 36px; height: 36px; border-radius: 50%; background: var(--laranja); color: #fff; font-weight: 800; display: grid; place-items: center; }
+    .passo h3 { margin: 6px 0 6px; font-size: 19px; }
+    .passo p { margin: 0; color: var(--suave); font-size: 16px; }
+
+    /* perguntas */
+    .faq { max-width: 760px; margin-top: 26px; display: grid; gap: 12px; }
+    details { background: var(--branco); border: 1px solid var(--borda); border-radius: 16px; padding: 4px 20px; }
+    summary { cursor: pointer; font-weight: 700; padding: 16px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "add"; font-family: "Material Symbols Rounded"; font-size: 24px; color: var(--verde-2); }
+    details[open] summary::after { content: "remove"; }
+    details p { margin: 0 0 18px; color: var(--suave); }
+
+    /* sobre e final */
+    .sobre { display: flex; gap: 26px; align-items: center; background: var(--branco); border-radius: 28px; padding: clamp(24px, 4vw, 40px); border: 1px solid var(--borda); }
+    .sobre .avatar { width: 120px; height: 120px; font-size: 40px; }
+    .sobre p { margin: 8px 0 0; color: var(--suave); }
+    .final { text-align: center; padding-bottom: 110px; }
+    .final h2 { max-width: 720px; margin: 0 auto; }
+    .final p { color: var(--suave); max-width: 560px; margin: 14px auto 26px; }
+    footer { text-align: center; color: var(--suave); font-size: 14px; padding: 0 20px 100px; }
+    footer a { color: var(--verde-2); }
+    .flutuante { position: fixed; right: 18px; bottom: 18px; z-index: 30; width: 62px; height: 62px; border-radius: 50%; background: var(--zap); color: #fff; display: grid; place-items: center; box-shadow: 0 10px 26px rgba(0,0,0,.25); text-decoration: none; }
+    .flutuante svg { width: 32px; height: 32px; }
+
+    /* janela para ver os exemplos */
+    .visor { position: fixed; inset: 0; z-index: 50; background: rgba(8,20,15,.75); display: none; padding: 18px; }
+    .visor.on { display: flex; }
+    .visor__janela { margin: auto; width: min(1280px, 100%); height: min(860px, 100%); background: #fff; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+    .visor__barra { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f1f5f3; border-bottom: 1px solid var(--borda); }
+    .visor__barra .url { flex: 1; background: #fff; border-radius: 999px; padding: 8px 14px; font-size: 14px; color: var(--suave); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .visor__barra button, .visor__barra a { border: 0; background: transparent; cursor: pointer; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; color: var(--texto); text-decoration: none; }
+    .visor__barra button:hover, .visor__barra a:hover { background: #e3ebe7; }
+    .visor iframe { flex: 1; border: 0; width: 100%; }
+
+    @media (max-width: 860px) {
+      .painel, .avaliacao { grid-template-columns: minmax(0, 1fr); }
+      .exemplo img { width: 76px; height: 60px; }
+      .tela { height: 500px; }
+      .sobre { flex-direction: column; text-align: center; }
+      .visor { padding: 0; }
+      .visor__janela { border-radius: 0; height: 100%; }
+      section { padding: 52px 0; }
+      .hero .btn { width: 100%; }
+      .topo a { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero"><div class="wrap">
+    <div class="topo">
+      <!-- Para usar sua foto: troque o "PB" por <img src="../foto.jpg" alt="Pedro Borges"> -->
+      <div class="avatar" aria-hidden="true">PB</div>
+      <div class="marca">Pedro Borges<small>Sites e sistemas · Curitiba</small></div>
+      <a href="#exemplos"><span class="ms">visibility</span>Ver exemplos</a>
+    </div>
+    <div class="para" id="para"><span class="ms">waving_hand</span><span id="para-texto"></span></div>
+    <h1>Seu negócio <em>aparecendo e vendendo</em> no celular do cliente.</h1>
+    <p>Eu crio sites, cardápios digitais e atendimento automático no WhatsApp para comércios e prestadores de serviço de Curitiba. Sem complicação e sem você precisar entender de tecnologia.</p>
+    <div class="acoes">
+      <a class="btn btn--zap" data-zap href="#"><span class="ms">chat</span>Quero uma avaliação grátis</a>
+      <a class="btn btn--claro" href="#exemplos"><span class="ms">play_circle</span>Ver funcionando</a>
+    </div>
+    <div class="selos"><span><span class="ms">check_circle</span>Avaliação sem compromisso</span><span><span class="ms">check_circle</span>Atendimento direto comigo</span><span><span class="ms">check_circle</span>Aqui de Curitiba</span></div>
+  </div></header>
+
+  <section><div class="wrap">
+    <span class="eyebrow">Isso acontece com você?</span>
+    <h2>Pequenas coisas que fazem o cliente ir para o concorrente</h2>
+    <div class="dores">
+      <div class="dor"><span class="ms">mark_chat_unread</span><strong>O WhatsApp não para e alguém sempre fica sem resposta</strong><p>Enquanto você atende o balcão, o cliente que perguntou o preço desistiu.</p></div>
+      <div class="dor"><span class="ms">travel_explore</span><strong>Quem procura no Google não acha você</strong><p>Ou acha uma página sem foto, sem horário e sem um jeito fácil de falar com você.</p></div>
+      <div class="dor"><span class="ms">phone_iphone</span><strong>O site é antigo ou não abre direito no celular</strong><p>Hoje quase todo mundo pesquisa pelo celular. Se fica estranho, a pessoa fecha.</p></div>
+      <div class="dor"><span class="ms">edit_note</span><strong>Agenda, pedidos e orçamentos no caderno ou de cabeça</strong><p>Dá trabalho, gera esquecimento e é difícil saber quem precisa de um retorno.</p></div>
+    </div>
+  </div></section>
+
+  <section class="servicos"><div class="wrap">
+    <span class="eyebrow">Como eu ajudo</span>
+    <h2>O que eu faço pelo seu negócio</h2>
+    <div class="grid-serv">
+      <div class="serv"><span class="ms">language</span><h3>Site que traz cliente</h3><p>Uma página bonita, rápida no celular, fácil de achar no Google e com botão direto para o seu WhatsApp.</p></div>
+      <div class="serv"><span class="ms">qr_code_2</span><h3>Cardápio ou catálogo digital</h3><p>O cliente abre pelo QR code ou pelo link. Mudou o preço? Atualiza na hora, sem imprimir de novo.</p></div>
+      <div class="serv"><span class="ms">support_agent</span><h3>Atendimento automático no WhatsApp</h3><p>Responde as perguntas de sempre, até fora do horário, marca horário e passa para você quando precisa.</p></div>
+      <div class="serv"><span class="ms">dashboard_customize</span><h3>Sistema do seu jeito</h3><p>Agenda, orçamentos, controle de clientes e pedidos num lugar só, feito para a rotina do seu negócio.</p></div>
+    </div>
+  </div></section>
+
+  <section id="exemplos"><div class="wrap">
+    <span class="eyebrow">Veja funcionando</span>
+    <h2>Escolha o tipo do seu negócio</h2>
+    <p class="lead">Toque nos exemplos para abrir como se fosse o site de verdade. E converse com o atendente virtual ao lado como se você fosse um cliente.</p>
+    <div class="abas" role="tablist" id="abas"></div>
+    <div class="painel">
+      <div>
+        <div class="exemplos" id="lista-exemplos"></div>
+        <p style="margin:22px 0 10px;font-weight:700">O que muda no seu dia a dia</p>
+        <ul class="ganhos" id="ganhos"></ul>
+      </div>
+      <div>
+        <div class="celular">
+          <div class="tela">
+            <div class="tela__topo"><div class="avatar" id="chat-avatar">B</div><div><strong id="chat-nome">Atendente virtual</strong><small>online agora</small></div></div>
+            <div class="msgs" id="msgs" aria-live="polite"></div>
+            <div class="sugestoes" id="sugestoes"></div>
+            <form class="escrever" id="form-chat"><input id="campo" placeholder="Escreva como se fosse o cliente…" autocomplete="off" aria-label="Mensagem"><button aria-label="Enviar"><span class="ms">send</span></button></form>
+          </div>
+        </div>
+        <p class="nota-chat">Exemplo de demonstração. No seu negócio, ele responde com as suas informações.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:20px"><div class="wrap">
+    <div class="avaliacao">
+      <div>
+        <span class="eyebrow" style="color:#fdba74">De graça e sem compromisso</span>
+        <h2>Peça uma avaliação do seu negócio na internet</h2>
+        <p>Eu dou uma olhada em como o seu negócio aparece hoje e te mando, em linguagem simples, o que pode melhorar. Você decide se quer fazer alguma coisa.</p>
+        <a class="btn btn--zap" data-zap href="#" style="margin-top:10px"><span class="ms">chat</span>Pedir minha avaliação</a>
+      </div>
+      <ul>
+        <li><span class="ms">location_on</span><span>Como você aparece no Google e no Google Maps</span></li>
+        <li><span class="ms">smartphone</span><span>Se o seu site (ou a falta dele) está fazendo você perder clientes</span></li>
+        <li><span class="ms">bolt</span><span>Onde dá para ganhar tempo no atendimento pelo WhatsApp</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="eyebrow">Simples assim</span>
+    <h2>Como funciona</h2>
+    <div class="passos">
+      <div class="passo"><h3>A gente conversa</h3><p>Você me conta como funciona o seu negócio, pelo WhatsApp ou pessoalmente. Sem termos técnicos.</p></div>
+      <div class="passo"><h3>Você recebe uma proposta clara</h3><p>O que vou fazer, quanto custa e em quanto tempo fica pronto, tudo combinado antes de começar.</p></div>
+      <div class="passo"><h3>Fica pronto e eu continuo por perto</h3><p>Eu coloco no ar, te mostro como usar e sigo disponível para ajustes e dúvidas.</p></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:12px"><div class="wrap">
+    <span class="eyebrow">Dúvidas comuns</span>
+    <h2>Perguntas que todo mundo faz</h2>
+    <div class="faq">
+      <details><summary>Preciso entender de tecnologia?</summary><p>Não. Eu cuido da parte técnica e te explico só o necessário para você usar no dia a dia.</p></details>
+      <details><summary>Quanto tempo leva para ficar pronto?</summary><p>Depende do que você precisa. Uma página simples sai bem mais rápido que um sistema completo. O prazo vem combinado na proposta, antes de começar.</p></details>
+      <details><summary>Tem mensalidade?</summary><p>Depende do serviço. Tudo o que tiver custo fixo (como domínio, hospedagem ou manutenção) fica explicado na proposta, sem surpresa depois.</p></details>
+      <details><summary>Eu já tenho um site. Vale a pena mexer?</summary><p>Eu avalio e te digo com sinceridade. Às vezes uns ajustes resolvem; outras vezes vale fazer de novo. Se estiver bom, eu falo que está bom.</p></details>
+      <details><summary>O atendente automático pode responder algo errado para o meu cliente?</summary><p>Ele só usa as informações que você aprovar. Quando a pergunta foge disso, ele avisa o cliente e passa a conversa para você.</p></details>
+      <details><summary>E se eu quiser mudar alguma coisa depois?</summary><p>É só me chamar. Preço, horário, foto nova ou um ajuste no texto, a gente resolve.</p></details>
+    </div>
+  </div></section>
+
+  <section style="padding-top:12px"><div class="wrap">
+    <div class="sobre">
+      <div class="avatar" aria-hidden="true">PB</div>
+      <div>
+        <span class="eyebrow">Quem vai cuidar do seu projeto</span>
+        <h2>Prazer, eu sou o Pedro</h2>
+        <p>Sou desenvolvedor aqui de Curitiba. Já criei sistemas de atendimento com WhatsApp, agendas para clínicas, cardápios digitais e sites para negócios de vários tamanhos. Gosto de entender como o seu negócio funciona de verdade e fazer algo que facilite a sua rotina, não que complique.</p>
+        <p style="margin-top:14px"><a href="../" style="color:var(--verde-2);font-weight:600">Ver meu portfólio completo →</a></p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="final"><div class="wrap">
+    <h2>Vamos ver o que dá para melhorar no seu negócio?</h2>
+    <p>Me chama no WhatsApp. A avaliação é grátis e você não tem nenhum compromisso.</p>
+    <a class="btn btn--zap" data-zap href="#"><span class="ms">chat</span>Falar com o Pedro no WhatsApp</a>
+    <p style="margin-top:18px;font-size:15px">(41) 99766-0117 · Curitiba/PR</p>
+  </div></section>
+
+  <footer>Os exemplos desta página usam empresas e dados fictícios, criados a partir de projetos que desenvolvi.</footer>
+
+  <a class="flutuante" data-zap href="#" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.7-5.8C5.1 10 10 5.2 16 5.2s10.9 4.8 10.9 10.6S22 26.4 16 26.4zm6-7.9c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  </a>
+
+  <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Exemplo">
+    <div class="visor__janela">
+      <div class="visor__barra"><span class="ms" style="color:#16a34a;font-size:18px;padding-left:6px">lock</span><div class="url" id="visor-url"></div>
+        <a id="visor-nova" target="_blank" rel="noopener" title="Abrir em nova aba"><span class="ms">open_in_new</span></a>
+        <button id="visor-fechar" title="Fechar"><span class="ms">close</span></button></div>
+      <iframe id="visor-frame" title="Exemplo de site"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP = "5541997660117";
+
+    /* Cada tipo de negócio: exemplos para abrir, ganhos e o roteiro do atendente virtual. */
+    const SEGMENTOS = {
+      restaurante: {
+        rotulo: "Restaurante, bar ou lanchonete", icone: "restaurant",
+        exemplos: [
+          { nome: "Bambu & Co", desc: "Site do bar com cardápio digital e tabela nutricional pelo QR code da mesa", href: "../lps/bambu/index.html", url: "bambubar.com.br", capa: "../lps/_capas/bambu.jpg" },
+          { nome: "Cardápio pelo QR code", desc: "O cliente escaneia na mesa e vê fotos, preços e opções", href: "../lps/bambu/cardapio/index.html", url: "bambubar.com.br/cardapio", capa: "../lps/bambu/assets/images/menu-pratos.jpg" },
+        ],
+        ganhos: ["Cardápio sempre atualizado, sem gastar com impressão", "Reservas e dúvidas respondidas no WhatsApp a qualquer hora", "Mais gente encontrando você no Google e no Maps"],
+        chat: {
+          nome: "Bambu & Co", letra: "B",
+          intro: "Oi! 😊 Aqui é o atendimento da Bambu & Co. Posso te mandar o cardápio, ver uma reserva ou tirar dúvidas.",
+          sugestoes: ["Qual o horário de vocês?", "Quero reservar uma mesa", "Tem opção vegetariana?", "Vocês fazem entrega?"],
+          regras: [
+            { m: ["horário", "horario", "abre", "fecha", "funciona"], r: "Abrimos de terça a domingo: almoço das 11h30 às 15h e noite das 18h às 23h30. Segunda estamos fechados 😉" },
+            { m: ["reserv", "mesa"], r: "Claro! Para quantas pessoas e em qual dia e horário? Já deixo anotado aqui pra você 🗓️" },
+            { m: ["pessoa", "sábado", "sabado", "sexta", "domingo", "hoje", "amanhã", "amanha", "às", "as 2", "as 1"], r: "Perfeito, reserva anotada! ✅ Você recebe a confirmação aqui pelo WhatsApp. Até lá!" },
+            { m: ["vegetar", "vegano", "sem carne"], r: "Temos sim! O risoto de cogumelos e o bowl de legumes grelhados são os mais pedidos. Quer o cardápio completo?" },
+            { m: ["cardápio", "cardapio", "menu", "quero", "sim"], r: "Aqui está: bambubar.com.br/cardapio 📲 Lá tem fotos, preços e as opções do dia." },
+            { m: ["entrega", "delivery", "ifood"], r: "Fazemos retirada no balcão e entrega pelos apps de delivery da região. Quer o link?" },
+          ],
+          padrao: "Boa pergunta! Vou chamar alguém da equipe para te responder certinho, só um minutinho 🙏",
+        },
+      },
+      saude: {
+        rotulo: "Clínica, consultório, salão ou estética", icone: "spa",
+        exemplos: [
+          { nome: "Agenda que marca sozinha", desc: "O paciente agenda pelo WhatsApp e a recepção só aprova (clique em Entrar)", href: "../demos/clinica-serena/#/aprovacao", url: "sistema.clinicaserena.com.br", capa: "../demos/clinica-serena/fundo.jpg" },
+          { nome: "Dr. Rafael Moretti", desc: "Site de médico com uma página para cada tratamento e botão de agendamento", href: "../lps/dr-moretti/index.html", url: "drmoretti.com.br", capa: "../lps/_capas/dr-moretti.jpg" },
+        ],
+        ganhos: ["Menos tempo da recepção respondendo as mesmas perguntas", "Horários marcados até de madrugada, sem perder paciente", "Lembretes que diminuem as faltas"],
+        chat: {
+          nome: "Clínica Serena", letra: "S",
+          intro: "Olá! 💙 Sou a assistente virtual da Clínica Serena. Posso tirar dúvidas e agendar sua consulta.",
+          sugestoes: ["Quero marcar uma consulta", "Quanto custa a consulta?", "Onde vocês ficam?", "Atendem convênio?"],
+          regras: [
+            { m: ["marcar", "agendar", "consulta", "horário", "horario"], r: "Claro! Tenho estes horários livres:\n• Segunda 02/11 às 08:30\n• Terça 03/11 às 16:00\n• Quarta 04/11 às 11:00\nQual fica melhor pra você?" },
+            { m: ["segunda", "terça", "terca", "quarta", "8:30", "08:30", "16", "11"], r: "Prontinho, horário reservado ✅ Me manda seu nome completo que eu finalizo o cadastro e te envio a confirmação." },
+            { m: ["custa", "valor", "preço", "preco"], r: "A consulta é R$ 450,00 e inclui um retorno em até 30 dias. Quer que eu veja um horário?" },
+            { m: ["onde", "endereço", "endereco", "fica", "local"], r: "Ficamos no Centro, perto da praça, com estacionamento conveniado 🚗 Te mando a localização?" },
+            { m: ["convênio", "convenio", "plano", "unimed"], r: "Atendemos particular e emitimos recibo para você pedir reembolso no seu plano. Quer agendar?" },
+          ],
+          padrao: "Vou chamar nossa recepção para te responder certinho, tá? Um momento 🙏",
+        },
+      },
+      loja: {
+        rotulo: "Loja, distribuidora ou comércio", icone: "storefront",
+        exemplos: [
+          { nome: "Orçamento automático no WhatsApp", desc: "O cliente manda a medida e recebe o orçamento em segundos (clique em Entrar)", href: "../demos/horizonte-vidros/#/playground", url: "app.horizontevidros.com.br", capa: "../demos/horizonte-vidros/hero.jpg" },
+          { nome: "Catálogo de produtos", desc: "Seus produtos com foto e preço, prontos para mandar ao cliente (clique em Entrar)", href: "../demos/solidus/#/produtos", url: "crm.solidus.com.br/produtos", capa: "../demos/solidus/produtos/manta_liquida_18kg.png" },
+        ],
+        ganhos: ["Orçamento respondido na hora, antes do cliente pesquisar o concorrente", "Catálogo para mandar pelo WhatsApp em um clique", "Controle de quem pediu orçamento e precisa de retorno"],
+        chat: {
+          nome: "Loja Horizonte", letra: "H",
+          intro: "Oi! 👋 Bem-vindo à Loja Horizonte. Posso te passar preços, ver se temos em estoque e montar seu orçamento.",
+          sugestoes: ["Vocês têm em estoque?", "Quanto fica a entrega?", "Aceitam Pix?", "Quero um orçamento"],
+          regras: [
+            { m: ["estoque", "tem", "disponível", "disponivel"], r: "Me diz qual produto (e a medida ou quantidade) que eu confiro agora no estoque 📦" },
+            { m: ["entrega", "frete"], r: "Entregamos em Curitiba e região. Acima de R$ 300 a entrega é grátis; abaixo disso, a partir de R$ 15 dependendo do bairro 🚚" },
+            { m: ["pix", "cartão", "cartao", "pagamento", "parcel"], r: "Aceitamos Pix, cartão (até 3x sem juros) e dinheiro na entrega 💳" },
+            { m: ["orçamento", "orcamento", "preço", "preco", "quanto"], r: "Bora! Me manda o que você precisa e as quantidades que eu já calculo pra você 🧾" },
+            { m: ["unidade", "metro", "peça", "peca", "kg", "caixa", "pacote"], r: "Anotado! ✅ Seu orçamento ficou em R$ 742,00 com entrega grátis. Te mando o PDF aqui mesmo?" },
+          ],
+          padrao: "Vou passar sua mensagem para um vendedor te responder agora, tá bom? 🙏",
+        },
+      },
+      servicos: {
+        rotulo: "Prestador de serviços", icone: "handyman",
+        exemplos: [
+          { nome: "VEXA", desc: "Página que apresenta a empresa e capta pedidos de orçamento pelo formulário e WhatsApp", href: "../lps/vexa/index.html", url: "vexa.com.br", capa: "../lps/_capas/vexa.jpg" },
+          { nome: "Controle de pedidos e clientes", desc: "Cada trabalho com etapa, prazo e cobrança, num painel simples (clique em Entrar)", href: "../demos/agencia-pulso/#/programacao", url: "sistema.agenciapulso.com.br", capa: "../demos/agencia-pulso/logo.png" },
+        ],
+        ganhos: ["Pedidos de orçamento chegando organizados, com tudo que você precisa saber", "Saber em que etapa está cada serviço e quem falta cobrar", "Uma página que passa confiança para quem ainda não te conhece"],
+        chat: {
+          nome: "Oficina do Bairro", letra: "O",
+          intro: "Olá! 🔧 Aqui é a Oficina do Bairro. Posso agendar uma avaliação, passar valores ou ver como está o seu serviço.",
+          sugestoes: ["Quero um orçamento", "Quanto tempo demora?", "Meu carro já está pronto?", "Vocês trabalham sábado?"],
+          regras: [
+            { m: ["orçamento", "orcamento", "preço", "preco", "quanto"], r: "Claro! Me conta o modelo do carro e o que está acontecendo. Se preferir, já agendo uma avaliação sem custo 🛠️" },
+            { m: ["tempo", "demora", "prazo"], r: "Uma revisão simples sai no mesmo dia. Serviços maiores a gente combina o prazo depois da avaliação 👍" },
+            { m: ["pronto", "status", "meu carro", "já"], r: "Deixa eu ver… Seu carro está na etapa de testes ✅ Deve ficar pronto hoje até as 17h. Te aviso por aqui!" },
+            { m: ["sábado", "sabado", "domingo", "horário", "horario"], r: "Funcionamos de segunda a sexta das 8h às 18h e sábado das 8h às 12h." },
+            { m: ["agenda", "avaliação", "avaliacao", "levar"], r: "Tenho vaga amanhã às 9h ou às 14h. Qual prefere? 🗓️" },
+          ],
+          padrao: "Vou chamar o responsável para te responder certinho, só um instante 🙏",
+        },
+      },
+    };
+
+    const $ = (s) => document.querySelector(s);
+    const params = new URLSearchParams(location.search);
+    const para = (params.get("para") || "").trim().slice(0, 60);
+    let tipo = SEGMENTOS[params.get("tipo")] ? params.get("tipo") : "restaurante";
+
+    /* Link do WhatsApp com mensagem pronta (personalizada quando o link veio com ?para=). */
+    function linkZap() {
+      const texto = para
+        ? `Oi, Pedro! Vi a página que você mandou para ${para} e quero saber mais sobre a avaliação grátis.`
+        : "Oi, Pedro! Vi sua página e quero uma avaliação grátis do meu negócio.";
+      return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
+    }
+    document.querySelectorAll("[data-zap]").forEach((a) => { a.href = linkZap(); a.target = "_blank"; a.rel = "noopener"; });
+
+    if (para) {
+      $("#para-texto").textContent = `Preparado para ${para}`;
+      $("#para").classList.add("on");
+      document.title = `${para} · Pedro Borges`;
+    }
+
+    /* Abas por tipo de negócio */
+    function abas() {
+      $("#abas").innerHTML = Object.entries(SEGMENTOS).map(([k, s]) =>
+        `<button class="aba" role="tab" aria-selected="${k === tipo}" data-tipo="${k}"><span class="ms">${s.icone}</span>${s.rotulo}</button>`).join("");
+      document.querySelectorAll("[data-tipo]").forEach((b) => b.addEventListener("click", () => { tipo = b.dataset.tipo; render(); }));
+    }
+
+    function render() {
+      abas();
+      const s = SEGMENTOS[tipo];
+      $("#lista-exemplos").innerHTML = s.exemplos.map((e, i) =>
+        `<button class="exemplo" data-ex="${i}"><img src="${e.capa}" alt="" loading="lazy"><span><strong>${e.nome}</strong><span>${e.desc}</span></span><span class="ms ir">arrow_circle_right</span></button>`).join("");
+      document.querySelectorAll("[data-ex]").forEach((b) => b.addEventListener("click", () => abrirExemplo(s.exemplos[+b.dataset.ex])));
+      $("#ganhos").innerHTML = s.ganhos.map((g) => `<li><span class="ms">check_circle</span>${g}</li>`).join("");
+      iniciarChat(s.chat);
+    }
+
+    /* Atendente virtual: respostas por palavra-chave, só para demonstrar a experiência. */
+    let conversa = [];
+    function hora() { return new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); }
+    function desenharChat(c) {
+      $("#msgs").innerHTML = conversa.map((m) => `<div class="msg msg--${m.de}"></div>`).join("");
+      [...$("#msgs").children].forEach((el, i) => { el.textContent = conversa[i].texto; el.insertAdjacentHTML("beforeend", `<small>${conversa[i].hora}</small>`); });
+      $("#msgs").scrollTop = $("#msgs").scrollHeight;
+    }
+    function iniciarChat(c) {
+      $("#chat-nome").textContent = c.nome;
+      $("#chat-avatar").textContent = c.letra;
+      conversa = [{ de: "eles", texto: c.intro, hora: hora() }];
+      desenharChat(c);
+      $("#sugestoes").innerHTML = c.sugestoes.map((t) => `<button type="button">${t}</button>`).join("");
+      [...$("#sugestoes").children].forEach((b) => b.addEventListener("click", () => enviar(b.textContent)));
+    }
+    function enviar(texto) {
+      const c = SEGMENTOS[tipo].chat;
+      conversa.push({ de: "cliente", texto, hora: hora() });
+      desenharChat(c);
+      const t = texto.toLowerCase();
+      const regra = c.regras.find((r) => r.m.some((p) => t.includes(p)));
+      const digitando = document.createElement("div");
+      digitando.className = "digitando";
+      digitando.textContent = "digitando…";
+      $("#msgs").appendChild(digitando);
+      $("#msgs").scrollTop = $("#msgs").scrollHeight;
+      const resposta = regra ? regra.r : c.padrao;
+      setTimeout(() => { conversa.push({ de: "eles", texto: resposta, hora: hora() }); desenharChat(c); }, 700 + Math.min(1400, resposta.length * 9));
+    }
+    $("#form-chat").addEventListener("submit", (e) => { e.preventDefault(); const v = $("#campo").value.trim(); if (v) { enviar(v); $("#campo").value = ""; } });
+
+    /* Janela para abrir os exemplos sem sair da página */
+    function abrirExemplo(e) {
+      $("#visor-frame").src = e.href;
+      $("#visor-url").textContent = `https://${e.url}`;
+      $("#visor-nova").href = e.href;
+      $("#visor").classList.add("on");
+      document.body.style.overflow = "hidden";
+    }
+    function fecharExemplo() { $("#visor").classList.remove("on"); $("#visor-frame").src = "about:blank"; document.body.style.overflow = ""; }
+    $("#visor-fechar").addEventListener("click", fecharExemplo);
+    $("#visor").addEventListener("click", (e) => { if (e.target.id === "visor") fecharExemplo(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharExemplo(); });
+
+    render();
+    if (params.get("tipo")) setTimeout(() => $("#exemplos").scrollIntoView(), 50);
+  </script>
+</body>
+</html>
