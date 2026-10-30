@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedro Borges · Portfólio</title>
+  <meta name="description" content="Sistemas web que desenvolvi: CRMs, agentes de IA no WhatsApp, ERPs de clínicas e integrações.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..600,0,0&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --bg: #f6f7fb; --surface: #ffffff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0;
+      --brand: #4f46e5; --brand-2: #06b6d4; --hero: #0b1020;
+      --radius: 18px; --shadow: 0 1px 2px rgba(15,23,42,.06), 0 10px 30px rgba(15,23,42,.07);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0b1020; --surface: #121a2f; --text: #e2e8f0; --muted: #94a3b8; --border: #1f2a44; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35); }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .ms { font-family: "Material Symbols Rounded"; font-size: 20px; line-height: 1; vertical-align: middle; font-weight: normal; font-style: normal; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* topo */
+    .top { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--hero) 82%, transparent); color: #e2e8f0; }
+    .top .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .top strong { font-size: 16px; letter-spacing: -.01em; }
+    .top nav { margin-left: auto; display: flex; gap: 22px; font-size: 14px; }
+    .top nav a { text-decoration: none; opacity: .8; }
+    .top nav a:hover { opacity: 1; }
+
+    /* hero */
+    .hero { background: radial-gradient(800px 400px at 85% 0%, rgba(79,70,229,.45), transparent 60%), radial-gradient(700px 380px at 0% 100%, rgba(6,182,212,.25), transparent 60%), var(--hero); color: #f8fafc; padding: 72px 0 96px; }
+    .hero .wrap { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .photo { width: 168px; height: 168px; border-radius: 50%; display: grid; place-items: center; font-size: 52px; font-weight: 800; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 0 0 6px rgba(255,255,255,.08); overflow: hidden; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 600; color: #a5b4fc; background: rgba(99,102,241,.15); padding: 6px 12px; border-radius: 999px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.05; margin: 14px 0 14px; letter-spacing: -.03em; }
+    .hero h1 span { background: linear-gradient(90deg, #a5b4fc, #67e8f9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 640px; font-size: 17px; line-height: 1.6; color: #cbd5e1; margin: 0; }
+    .cta { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,.18); color: #f8fafc; background: rgba(255,255,255,.06); cursor: pointer; font: inherit; font-weight: 600; }
+    .btn:hover { background: rgba(255,255,255,.12); }
+    .btn--primary { background: #f8fafc; color: #0b1020; border-color: #f8fafc; }
+    .btn--primary:hover { background: #e2e8f0; }
+    .stats { display: flex; gap: 36px; margin-top: 36px; flex-wrap: wrap; }
+    .stats b { display: block; font-size: 28px; letter-spacing: -.02em; }
+    .stats span { color: #94a3b8; font-size: 13px; }
+
+    /* seções */
+    section { padding: 72px 0; }
+    .head { display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+    .head h2 { font-size: 30px; margin: 0; letter-spacing: -.02em; }
+    .head p { margin: 6px 0 0; color: var(--muted); max-width: 620px; line-height: 1.55; }
+    .filters { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter { border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 8px 14px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+    .filter.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+    #projetos { margin-top: -56px; padding-top: 0; }
+
+    /* cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; cursor: pointer; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(15,23,42,.06), 0 20px 50px rgba(15,23,42,.14); }
+    .card:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #e2e8f0; border-bottom: 1px solid var(--border); }
+    .shot iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; pointer-events: none; }
+    .shot .play { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(180deg, transparent 40%, rgba(2,6,23,.55)); opacity: 0; transition: opacity .2s; }
+    .card:hover .play { opacity: 1; }
+    .play span { background: #fff; color: #0b1020; font-weight: 700; padding: 10px 16px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .meta { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .card h3 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14.5px; }
+    .points { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 14px; }
+    .points li { display: flex; gap: 8px; align-items: flex-start; }
+    .points .ms { font-size: 18px; color: #22c55e; }
+    .stack { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
+    .tag { font-size: 12px; font-weight: 600; padding: 4px 9px; border-radius: 8px; background: color-mix(in srgb, var(--brand) 10%, var(--surface)); color: color-mix(in srgb, var(--brand) 70%, var(--text)); }
+
+    /* skills */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .skill { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .skill h3 { margin: 0 0 12px; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+    .skill .stack { padding: 0; }
+
+    footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; text-align: center; }
+
+    /* janela de navegador simulada */
+    .viewer { position: fixed; inset: 0; z-index: 50; background: rgba(2,6,23,.72); backdrop-filter: blur(4px); display: none; padding: 28px; }
+    .viewer.open { display: flex; animation: fade .2s; }
+    @keyframes fade { from { opacity: 0; } }
+    .window { margin: auto; width: min(1440px, 100%); height: min(900px, 100%); background: #fff; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: rise .25s ease; }
+    @keyframes rise { from { transform: translateY(14px) scale(.98); opacity: .5; } }
+    .chrome { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #e9edf3; border-bottom: 1px solid #d5dbe4; color: #334155; }
+    .lights { display: flex; gap: 7px; }
+    .lights i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+    .chrome .nav { display: flex; gap: 2px; }
+    .chrome button { border: 0; background: transparent; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; cursor: pointer; color: #475569; }
+    .chrome button:hover { background: #dde3ec; }
+    .url { flex: 1; display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 7px 14px; font-size: 13px; color: #334155; min-width: 0; }
+    .url span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .url .ms { font-size: 16px; color: #16a34a; }
+    .window iframe { flex: 1; border: 0; width: 100%; background: #fff; }
+
+    @media (max-width: 760px) {
+      .top nav { display: none; }
+      .hero { padding: 48px 0 88px; }
+      .hero .wrap { grid-template-columns: 1fr; gap: 24px; }
+      .photo { width: 112px; height: 112px; font-size: 36px; }
+      .wrap { padding: 0 16px; }
+      .grid { grid-template-columns: 1fr; }
+      .filters { margin-left: 0; }
+      .viewer { padding: 0; }
+      .window { border-radius: 0; height: 100%; }
+      .lights, .chrome .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap"><strong>Pedro Borges</strong><nav><a href="#projetos">Projetos</a><a href="#skills">Skills</a><a href="#contato">Contato</a></nav></div></header>
+
+  <div class="hero"><div class="wrap">
+    <!-- Para usar sua foto: troque o "PB" por <img src="foto.jpg" alt="Pedro Borges"> -->
+    <div class="photo" aria-hidden="true">PB</div>
+    <div>
+      <span class="eyebrow"><span class="ms" style="font-size:16px">code</span>Desenvolvedor Full Stack</span>
+      <h1>Sistemas que resolvem <span>problemas reais de negócio</span></h1>
+      <p>CRMs com WhatsApp, agentes de IA que atendem e agendam, ERPs de clínicas, integrações com ERPs e ATS. Abaixo, uma demonstração navegável de cada sistema que desenvolvi — com nomes e dados fictícios.</p>
+      <div class="cta"><a class="btn btn--primary" href="#projetos"><span class="ms">apps</span>Ver projetos</a><a class="btn" href="#contato"><span class="ms">mail</span>Entrar em contato</a></div>
+      <div class="stats"><div><b id="n-proj">10</b><span>sistemas desenvolvidos</span></div><div><b>3</b><span>agentes de IA</span></div><div><b>12+</b><span>integrações</span></div></div>
+    </div>
+  </div></div>
+
+  <section id="projetos"><div class="wrap">
+    <div class="head" style="padding-top:88px"><div><h2>Projetos</h2><p>Clique em um card para abrir o sistema. Dá para entrar, navegar pelo menu, abrir registros, arrastar cards, gerar PDFs e conversar com os agentes de IA.</p></div>
+      <div class="filters" id="filters"></div></div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section id="skills" style="padding-top:24px"><div class="wrap">
+    <div class="head"><div><h2>Skills</h2><p>Tecnologias que uso no dia a dia desses projetos.</p></div></div>
+    <div class="skills" id="skills-grid"></div>
+  </div></section>
+
+  <footer id="contato"><div class="wrap">
+    <!-- Coloque aqui seus links reais (e-mail, LinkedIn, GitHub). -->
+    <p>Pedro Borges · Desenvolvedor Full Stack</p>
+    <p style="margin-top:6px">Os sistemas desta página são demonstrações: empresas, pessoas e dados são fictícios.</p>
+  </div></footer>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Demonstração do sistema">
+    <div class="window">
+      <div class="chrome">
+        <div class="lights"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+        <div class="nav"><button id="v-back" title="Voltar"><span class="ms">arrow_back</span></button><button id="v-reload" title="Recarregar"><span class="ms">refresh</span></button></div>
+        <div class="url"><span class="ms">lock</span><span id="v-url"></span></div>
+        <button id="v-new" title="Abrir em nova aba"><span class="ms">open_in_new</span></button>
+        <button id="v-close" title="Fechar (Esc)"><span class="ms">close</span></button>
+      </div>
+      <iframe id="v-frame" title="Sistema em demonstração"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const PROJETOS = [
+      { slug: "horizonte-vidros", nome: "Horizonte Vidros", setor: "Indústria · Vidros", cor: "#4f6bd8", url: "app.horizontevidros.com.br", tags: ["IA", "CRM", "WhatsApp"],
+        desc: "Atendimento no WhatsApp com agente de IA que qualifica o cliente pelo CNPJ, calcula o orçamento e distribui a conversa para a vendedora certa.",
+        pontos: ["Motor de orçamento determinístico (o LLM nunca calcula preço)", "Inbox multiatendimento + funil kanban", "1.000+ testes automatizados"],
+        stack: ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL", "OpenAI", "Cloud Run"] },
+      { slug: "clinica-serena", nome: "Clínica Serena", setor: "Saúde · Dermatologia", cor: "#144654", url: "sistema.clinicaserena.com.br", tags: ["IA", "Saúde", "WhatsApp", "PHP"],
+        desc: "Gestão de clínica com agente de IA que agenda consultas pelo WhatsApp e um robô que emite receitas na Memed.",
+        pontos: ["Agente com tools e regras no back-end", "Golden set para validar prompts", "Automação com Playwright"],
+        stack: ["PHP", "Laravel", "MySQL", "Python", "FastAPI", "Playwright", "LLM + RAG"] },
+      { slug: "solidus", nome: "Solidus", setor: "Indústria · Construção", cor: "#d9731f", url: "crm.solidus.com.br", tags: ["IA", "CRM", "WhatsApp"],
+        desc: "CRM comercial com WhatsApp por vendedor, agente de IA com RAG, carteira importada do ERP e integração com o RD Station.",
+        pontos: ["RAG em memória com fallback lexical", "Sincronização OAuth com RD Station", "Propostas em PDF a partir do catálogo"],
+        stack: ["Python", "FastAPI", "React", "PostgreSQL", "OpenAI", "RD Station"] },
+      { slug: "impulsa", nome: "Mentoria Impulsa", setor: "Serviços · Consultoria", cor: "#0f766e", url: "portal.impulsa.com.br", tags: ["CRM", "Gestão"],
+        desc: "Do lead ao resultado: CRM, contratos com assinatura, diagnósticos com comparativo, planos de ação e portal do mentorado.",
+        pontos: ["Contrato assinado gera parcelas e onboarding", "Integração com Google Agenda", "Matriz de permissões por perfil"],
+        stack: ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL", "Google APIs"] },
+      { slug: "clinica-aurora", nome: "Clínica Aurora", setor: "Saúde · Estética", cor: "#0b3d33", url: "app.clinicaaurora.com.br", tags: ["Saúde", "Gestão"],
+        desc: "ERP de clínica de estética: agenda por sala, ficha clínica com fotos de antes e depois, orçamentos, estoque por lote e financeiro.",
+        pontos: ["Baixa de insumos por procedimento", "Orçamentos em PDF timbrado", "Chat interno entre recepção e consultório"],
+        stack: ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL"] },
+      { slug: "ferrum", nome: "Ferrum", setor: "Distribuição · Metais", cor: "#163a6b", url: "vendas.ferrum.com.br", tags: ["CRM", "ERP", "WhatsApp"],
+        desc: "CRM de vendas integrado ao ERP Sankhya: carteira, reativação de clientes, oportunidades e WhatsApp numa tela só.",
+        pontos: ["Sincronização com a API do Sankhya", "Webhooks de uazapi e ChatGuru", "Lista de reativação por potencial"],
+        stack: ["Python", "FastAPI", "React", "PostgreSQL", "Sankhya"] },
+      { slug: "agencia-pulso", nome: "Agência Pulso", setor: "Marketing · Agência", cor: "#0891a0", url: "sistema.agenciapulso.com.br", tags: ["Gestão", "Financeiro"],
+        desc: "Programação de conteúdo com aprovação do cliente por link, CRM da agência e financeiro com boletos e Pix via Asaas.",
+        pontos: ["Kanban de produção por etapa", "Webhooks de pagamento do Asaas", "Integração com a Meta Graph API"],
+        stack: ["Python", "FastAPI", "React", "PostgreSQL", "Asaas", "Meta API"] },
+      { slug: "rumo-talentos", nome: "Rumo Talentos", setor: "RH · Recrutamento", cor: "#2c1154", url: "app.rumotalentos.com.br", tags: ["Automação", "PHP"],
+        desc: "Qualificação automática de candidatos: coleta no ATS Abler por automação de navegador, pontua pelos critérios da vaga e devolve os aprovados.",
+        pontos: ["Coletor Node.js + Playwright com OTP por e-mail", "Regras de qualificação configuráveis", "WhatsApp via Digisac"],
+        stack: ["PHP", "Laravel", "MySQL", "Node.js", "Playwright"] },
+      { slug: "sintravida", nome: "Sintravida", setor: "Sindicato · Benefícios", cor: "#0b5d4f", url: "portal.sintravida.org.br", tags: ["PHP", "Financeiro"],
+        desc: "Portal do associado: ingressos do parque conveniado, sorteio da casa de praia, pagamento por Pix e check-in por QR Code.",
+        pontos: ["Pix via Asaas com confirmação automática", "Reserva sincronizada com a API do parque", "Sorteio com convites e lista de espera"],
+        stack: ["PHP", "Laravel", "MySQL", "Asaas", "jQuery"] },
+      { slug: "verdalis", nome: "Verdalis", setor: "Indústria · Papel e embalagens", cor: "#1f3f8f", url: "documental.verdalis.com.br", tags: ["Gestão", "PHP"],
+        desc: "Gestão documental para as certificações FSC e EUDR: documentos versionados, vigências e alertas automáticos aos fornecedores.",
+        pontos: ["Alertas de vencimento por e-mail", "Homologação de fornecedores", "Consulta de CNPJ na BrasilAPI"],
+        stack: ["PHP", "Laravel", "MySQL", "Bootstrap"] },
+    ];
+
+    const SKILLS = [
+      { titulo: "Back-end", icone: "dns", itens: ["Python", "FastAPI", "SQLAlchemy", "PHP", "Laravel", "Node.js"] },
+      { titulo: "Front-end", icone: "web", itens: ["React", "TypeScript", "Vite", "TanStack", "Bootstrap", "jQuery"] },
+      { titulo: "Dados", icone: "database", itens: ["PostgreSQL", "MySQL", "BigQuery", "Alembic"] },
+      { titulo: "IA", icone: "smart_toy", itens: ["Agentes com tools", "RAG", "OpenAI", "Gemini", "Langfuse"] },
+      { titulo: "Integrações", icone: "hub", itens: ["WhatsApp (uazapi, Gupshup)", "Asaas", "Sankhya", "RD Station", "Meta API", "Playwright"] },
+      { titulo: "Infra e qualidade", icone: "cloud", itens: ["Google Cloud Run", "Docker", "pytest", "Vitest", "CI/CD"] },
+    ];
+
+    const $ = (s) => document.querySelector(s);
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    let filtro = "Todos";
+
+    function cards() {
+      const lista = PROJETOS.filter((p) => filtro === "Todos" || p.tags.includes(filtro));
+      $("#grid").innerHTML = lista.map((p) => `
+        <article class="card" tabindex="0" data-slug="${p.slug}" aria-label="Abrir demonstração de ${esc(p.nome)}">
+          <div class="shot"><iframe data-src="demos/${p.slug}/?thumb=1" title="Prévia de ${esc(p.nome)}" tabindex="-1" aria-hidden="true"></iframe>
+            <div class="play"><span><span class="ms">play_arrow</span>Explorar o sistema</span></div></div>
+          <div class="body">
+            <div class="meta" style="color:${p.cor}"><i class="dot" style="background:${p.cor}"></i>${esc(p.setor)}</div>
+            <h3>${esc(p.nome)}</h3><p>${esc(p.desc)}</p>
+            <ul class="points">${p.pontos.map((t) => `<li><span class="ms">check_circle</span>${esc(t)}</li>`).join("")}</ul>
+            <div class="stack">${p.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+          </div>
+        </article>`).join("");
+      document.querySelectorAll(".card").forEach((c) => {
+        const open = () => abrir(c.dataset.slug);
+        c.addEventListener("click", open);
+        c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      });
+      prepararPrevias();
+    }
+
+    /* Prévias ao vivo: cada card carrega a demo em miniatura quando aparece na tela. */
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const f = e.target.querySelector("iframe");
+      if (!f.src) f.src = f.dataset.src;
+      io.unobserve(e.target);
+    }), { rootMargin: "200px" });
+    const ro = new ResizeObserver((entries) => entries.forEach((e) => {
+      const f = e.target.querySelector("iframe");
+      f.style.transform = `scale(${e.contentRect.width / 1280})`;
+    }));
+    function prepararPrevias() { document.querySelectorAll(".shot").forEach((s) => { io.observe(s); ro.observe(s); }); }
+
+    function filtros() {
+      const tags = ["Todos", ...new Set(PROJETOS.flatMap((p) => p.tags))];
+      $("#filters").innerHTML = tags.map((t) => `<button class="filter ${t === filtro ? "on" : ""}" data-f="${esc(t)}">${esc(t)}</button>`).join("");
+      document.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { filtro = b.dataset.f; filtros(); cards(); }));
+    }
+
+    function skills() {
+      $("#skills-grid").innerHTML = SKILLS.map((s) => `<div class="skill"><h3><span class="ms">${s.icone}</span>${esc(s.titulo)}</h3><div class="stack">${s.itens.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div></div>`).join("");
+    }
+
+    /* Janela de navegador com a demo. O hash #demo/<slug> permite compartilhar o link já aberto. */
+    const viewer = $("#viewer"), frame = $("#v-frame");
+    let atual = null;
+    function abrir(slug, semHistorico) {
+      const p = PROJETOS.find((x) => x.slug === slug);
+      if (!p) return;
+      atual = p;
+      frame.src = `demos/${slug}/`;
+      $("#v-url").textContent = `https://${p.url}`;
+      viewer.classList.add("open");
+      document.body.style.overflow = "hidden";
+      if (!semHistorico) history.pushState(null, "", `#demo/${slug}`);
+      $("#v-close").focus();
+    }
+    function fechar(semHistorico) {
+      viewer.classList.remove("open");
+      frame.src = "about:blank";
+      document.body.style.overflow = "";
+      if (!semHistorico && location.hash.startsWith("#demo/")) history.pushState(null, "", "#projetos");
+    }
+    $("#v-close").addEventListener("click", () => fechar());
+    $("#v-new").addEventListener("click", () => atual && window.open(`demos/${atual.slug}/`, "_blank", "noopener"));
+    $("#v-reload").addEventListener("click", () => { try { frame.contentWindow.location.reload(); } catch (e) { frame.src = frame.src; } });
+    $("#v-back").addEventListener("click", () => { try { frame.contentWindow.history.back(); } catch (e) { /* demo em outra origem */ } });
+    viewer.addEventListener("click", (e) => { if (e.target === viewer) fechar(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && viewer.classList.contains("open")) fechar(); });
+    frame.addEventListener("load", () => {
+      // Mostra a "rota" da demo na barra de endereço, como num navegador de verdade.
+      try {
+        const w = frame.contentWindow;
+        const sync = () => { $("#v-url").textContent = `https://${atual.url}/${(w.location.hash || "").replace(/^#\/?/, "")}`; };
+        w.addEventListener("hashchange", sync);
+        // Captura: roda antes da demo fechar o próprio drawer, então Esc fecha uma coisa por vez.
+        w.addEventListener("keydown", (e) => { if (e.key === "Escape" && !w.document.querySelector(".overlay")) fechar(); }, true);
+        sync();
+      } catch (e) { /* sem acesso ao iframe: mantém a URL base */ }
+    });
+    function rotear() {
+      const m = location.hash.match(/^#demo\/([\w-]+)/);
+      if (m) abrir(m[1], true); else if (viewer.classList.contains("open")) fechar(true);
+    }
+    window.addEventListener("popstate", rotear);
+
+    $("#n-proj").textContent = PROJETOS.length;
+    filtros(); cards(); skills(); rotear();
+  </script>
+</body>
+</html>

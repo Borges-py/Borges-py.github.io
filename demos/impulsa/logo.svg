@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" role="img" aria-label="Mentoria Impulsa">
+  <rect x="4" y="4" width="64" height="64" rx="15" fill="#0F766E"/>
+  <rect x="12" y="54" width="48" height="6" rx="3" fill="#F97316"/>
+  <path d="M28 16h16v6h-4.5v24H44v6H28v-6h4.5V22H28z" fill="#FFFFFF"/>
+  <text x="84" y="32" font-family="'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" font-size="24" font-weight="700" fill="#14201F">Mentoria</text>
+  <text x="84" y="60" font-family="'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" font-size="24" font-weight="700" fill="#14201F">Impulsa</text>
+</svg>
