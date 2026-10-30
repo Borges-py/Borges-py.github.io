@@ -55,9 +55,23 @@
     .head { display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
     .head h2 { font-size: 30px; margin: 0; letter-spacing: -.02em; }
     .head p { margin: 6px 0 0; color: var(--muted); max-width: 620px; line-height: 1.55; }
-    .filters { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter { border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 8px 14px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
-    .filter.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .filters { margin-left: auto; position: relative; display: flex; align-items: center; gap: 10px; }
+    .filters .count { color: var(--muted); font-size: 14px; }
+    .filter-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 9px 14px; border-radius: 12px; cursor: pointer; font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow); }
+    .filter-btn:hover { border-color: color-mix(in srgb, var(--brand) 50%, var(--border)); }
+    .filter-btn.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .filter-btn .x { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: -4px; border-radius: 50%; background: rgba(255,255,255,.22); }
+    .filter-btn .x .ms { font-size: 15px; }
+    .filter-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: 250px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 18px 48px rgba(2,6,23,.22); padding: 6px; display: none; }
+    .filter-menu.open { display: block; animation: drop .15s ease; }
+    @keyframes drop { from { opacity: 0; transform: translateY(-4px); } }
+    .filter-menu small { display: block; padding: 8px 10px 6px; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .filter-opt { width: 100%; display: flex; align-items: center; gap: 10px; padding: 9px 10px; border: 0; background: transparent; color: var(--text); border-radius: 9px; cursor: pointer; font: inherit; font-size: 14px; text-align: left; }
+    .filter-opt:hover, .filter-opt:focus-visible { background: color-mix(in srgb, var(--brand) 9%, transparent); outline: none; }
+    .filter-opt .ms { font-size: 19px; color: var(--muted); }
+    .filter-opt .n { margin-left: auto; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .filter-opt.on { font-weight: 700; }
+    .filter-opt.on .ms { color: var(--brand); }
     #projetos { margin-top: -56px; padding-top: 0; }
 
     /* cards */
@@ -125,7 +139,8 @@
       .photo { width: 112px; height: 112px; font-size: 36px; }
       .wrap { padding: 0 16px; }
       .grid { grid-template-columns: 1fr; }
-      .filters { margin-left: 0; }
+      .filters { margin-left: 0; width: 100%; justify-content: space-between; }
+      .filter-menu { left: auto; right: 0; }
       .viewer { padding: 0; }
       .window { border-radius: 0; height: 100%; }
       .lights, .chrome .nav { display: none; }
@@ -141,7 +156,7 @@
     <div>
       <span class="eyebrow"><span class="ms" style="font-size:16px">code</span>Desenvolvedor Full Stack</span>
       <h1>Sistemas que resolvem <span>problemas reais de negócio</span></h1>
-      <p>CRMs com WhatsApp, agentes de IA que atendem e agendam, ERPs de clínicas, integrações com ERPs e ATS. Abaixo, uma demonstração navegável de cada sistema que desenvolvi — com nomes e dados fictícios.</p>
+      <p>CRMs com WhatsApp, agentes de IA que atendem e agendam, ERPs de clínicas, integrações com ERPs e ATS. Abaixo, uma demonstração navegável de cada sistema que desenvolvi.</p>
       <div class="cta"><a class="btn btn--primary" href="#projetos"><span class="ms">apps</span>Ver projetos</a><a class="btn" href="#contato"><span class="ms">mail</span>Entrar em contato</a></div>
       <div class="stats"><div><b id="n-proj">10</b><span>sistemas desenvolvidos</span></div><div><b>3</b><span>agentes de IA</span></div><div><b>12+</b><span>integrações</span></div></div>
     </div>
@@ -270,11 +285,33 @@
       "verdalis": { logo: "logo.png", selos: [["folder_open", "Documentos"], ["notifications_active", "Alertas"], ["verified", "FSC / EUDR"]] },
     };
 
-    function filtros() {
-      const tags = ["Todos", ...new Set(PROJETOS.flatMap((p) => p.tags))];
-      $("#filters").innerHTML = tags.map((t) => `<button class="filter ${t === filtro ? "on" : ""}" data-f="${esc(t)}">${esc(t)}</button>`).join("");
-      document.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { filtro = b.dataset.f; filtros(); cards(); }));
+    /* Filtro: botão que abre um menu com as categorias e a quantidade de projetos em cada uma. */
+    const ICONES_FILTRO = { IA: "smart_toy", CRM: "handshake", WhatsApp: "chat", "Saúde": "medical_services", PHP: "code", "Gestão": "dashboard", ERP: "sync_alt", Financeiro: "payments", "Automação": "precision_manufacturing" };
+    function filtros(abrirMenu) {
+      const tags = [...new Set(PROJETOS.flatMap((p) => p.tags))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+      const qtd = (t) => PROJETOS.filter((p) => t === "Todos" || p.tags.includes(t)).length;
+      const opt = (t, ic) => `<button class="filter-opt ${t === filtro ? "on" : ""}" role="menuitemradio" aria-checked="${t === filtro}" data-f="${esc(t)}"><span class="ms">${t === filtro ? "check_circle" : ic}</span>${esc(t === "Todos" ? "Todos os projetos" : t)}<span class="n">${qtd(t)}</span></button>`;
+      const ativo = filtro !== "Todos";
+      $("#filters").innerHTML = `<span class="count">${qtd(filtro)} ${qtd(filtro) === 1 ? "projeto" : "projetos"}</span>
+        <button class="filter-btn ${ativo ? "on" : ""}" id="f-btn" aria-haspopup="menu" aria-expanded="false"><span class="ms">tune</span>${ativo ? esc(filtro) : "Filtrar"}${ativo ? `<span class="x" id="f-clear" title="Limpar filtro"><span class="ms">close</span></span>` : `<span class="ms" style="font-size:18px">expand_more</span>`}</button>
+        <div class="filter-menu" id="f-menu" role="menu">${opt("Todos", "apps")}<small>Categorias</small>${tags.map((t) => opt(t, ICONES_FILTRO[t] || "label")).join("")}</div>`;
+      const btn = $("#f-btn"), menu = $("#f-menu");
+      const toggle = (open) => { menu.classList.toggle("open", open); btn.setAttribute("aria-expanded", open); if (open) (menu.querySelector(".on") || menu.querySelector("button")).focus(); };
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (e.target.closest("#f-clear")) { filtro = "Todos"; filtros(); cards(); return; }
+        toggle(!menu.classList.contains("open"));
+      });
+      menu.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { filtro = b.dataset.f; filtros(); cards(); $("#f-btn").focus(); }));
+      menu.addEventListener("keydown", (e) => {
+        const itens = [...menu.querySelectorAll("button")], i = itens.indexOf(document.activeElement);
+        if (e.key === "ArrowDown") { e.preventDefault(); itens[(i + 1) % itens.length].focus(); }
+        if (e.key === "ArrowUp") { e.preventDefault(); itens[(i - 1 + itens.length) % itens.length].focus(); }
+        if (e.key === "Escape") { toggle(false); btn.focus(); }
+      });
+      if (abrirMenu) toggle(true);
     }
+    document.addEventListener("click", (e) => { const m = $("#f-menu"); if (m && !e.target.closest("#filters")) { m.classList.remove("open"); $("#f-btn").setAttribute("aria-expanded", "false"); } });
 
     function skills() {
       $("#skills-grid").innerHTML = SKILLS.map((s) => `<div class="skill"><h3><span class="ms">${s.icone}</span>${esc(s.titulo)}</h3><div class="stack">${s.itens.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div></div>`).join("");
